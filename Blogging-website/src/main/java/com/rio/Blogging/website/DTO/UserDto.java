@@ -17,8 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserDto {
 
     private Long id;
-    @NotEmpty(message = "Name can't be empty")
-    private  String name;
+    @NotEmpty(message = "Username can't be empty")
+    private  String username;
     @Email(message = "Email should be valid")
     private  String email;
     @Size(max = 14, min = 6,message = "Password should be between 6 to 14 characters")
@@ -34,12 +34,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getusername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

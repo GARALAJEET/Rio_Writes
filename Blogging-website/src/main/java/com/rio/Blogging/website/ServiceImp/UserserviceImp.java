@@ -2,8 +2,9 @@ package com.rio.Blogging.website.ServiceImp;
 
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
-import com.rio.Blogging.website.repo.useRepo;
+import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.service.userService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,21 @@ import java.util.Optional;
 @Service
 public class UserserviceImp implements userService {
     @Autowired
-    private useRepo userRepo;
+    private userRepo userRepo;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public ResponseEntity<String> createUser(UserDto user) {
         User cur_user=dtoToUser(user);
+        Optional<User> s1=userRepo.findByEmail(user.getEmail());
+        if(s1.isPresent()){
+            return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
+        }
+        Optional<User>s2=userRepo.findByUsername(user.getusername());
+        if(s2.isPresent()){
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+        }
         User us=userRepo.save(cur_user);
         if(us!=null){
             return new ResponseEntity<>("User Created", HttpStatus.CREATED);
@@ -43,22 +54,25 @@ public class UserserviceImp implements userService {
 
     @Override
     public ResponseEntity<?> updateUser(Long id, UserDto userdto) {
-        Optional<User> user=userRepo.findById(Math.toIntExact(id));
-        if(user.isPresent()){
-            User cur_user=dtoToUser(userdto);
-           User up_user=new User();
-                up_user.setName(cur_user.getName());
-                up_user.setEmail(cur_user.getEmail());
-                up_user.setAbout(cur_user.getAbout());
-                up_user.setPassword(cur_user.getPassword());
-                User us=userRepo.save(up_user);
-                if(us!=null){
-                    return new ResponseEntity<>("User Updated", HttpStatus.OK);
-                }
+        Optional<User> userOpt = userRepo.findById(Math.toIntExact(id));
 
+        if (userOpt.isPresent()) {
+            User existingUser = userOpt.get();
+
+
+            existingUser.setUsername(userdto.getusername());
+            existingUser.setEmail(userdto.getEmail());
+            existingUser.setAbout(userdto.getAbout());
+            existingUser.setPassword(userdto.getPassword());
+
+            User updatedUser = userRepo.save(existingUser);
+
+            return new ResponseEntity<>("User Updated", HttpStatus.OK);
         }
-        return new ResponseEntity<>("User not Updated",HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
+
 
 
 
@@ -69,7 +83,7 @@ public class UserserviceImp implements userService {
             userRepo.delete(user.get());
             return new ResponseEntity<>("User Deleted", HttpStatus.OK);
         }
-        return new ResponseEntity<>("User not Deleted", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("User not Found", HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -86,19 +100,12 @@ public class UserserviceImp implements userService {
         return new ResponseEntity<>("No Users Found",HttpStatus.NOT_FOUND);
     }
     public User dtoToUser(UserDto userDto){
-        User user=new User();
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setAbout(userDto.getAbout());
+        User user=modelMapper.map(userDto,User.class);
         return user;
     }
     public UserDto userToUserDto(User user){
-        UserDto userDto=new UserDto();
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
+
+        UserDto userDto=modelMapper.map(user,UserDto.class);
         return userDto;
     }
 }
