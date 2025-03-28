@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ public class UserserviceImp implements userService {
     private userRepo userRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public ResponseEntity<String> createUser(UserDto user) {
@@ -34,6 +38,16 @@ public class UserserviceImp implements userService {
         }
         User us=userRepo.save(cur_user);
         if(us!=null){
+
+            try {
+                 SimpleMailMessage msg = new SimpleMailMessage();
+                 msg.setTo(cur_user.getEmail());
+                 msg.setSubject("Registration Successful");
+                 msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
+                 javaMailSender.send(msg);
+            } catch (Exception e) {
+                return new ResponseEntity<>("Registration Failed", HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>("User Created", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("User not Created",HttpStatus.BAD_REQUEST);
