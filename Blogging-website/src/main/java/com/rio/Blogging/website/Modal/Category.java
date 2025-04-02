@@ -1,11 +1,12 @@
 package com.rio.Blogging.website.Modal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +19,8 @@ public class Category {
     private Long categoryid;
     private String categorytitle;
     private String categotydescription;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch= FetchType.LAZY)
+    private List<Post> posts=new ArrayList<>();
 
     public Long getCategoryid() {
         return categoryid;
