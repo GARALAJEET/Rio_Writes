@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Category {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryid;
     private String categorytitle;
     private String categotydescription;

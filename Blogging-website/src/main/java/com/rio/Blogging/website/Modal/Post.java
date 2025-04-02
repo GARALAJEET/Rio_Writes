@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Post {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
     private String title;
     private String content;
@@ -22,6 +22,7 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime addedDate;
     @ManyToOne
+    @JoinColumn(name = "categoryid")
     private Category category;
     @ManyToOne
     private User user;

@@ -32,7 +32,7 @@ public class CategorySeriveImp  implements categoryService {
 
     @Override
     public ResponseEntity<?> getCategory(Long id) {
-        Optional<Category>cat=categoryRepo.findById(Math.toIntExact(id));
+        Optional<Category>cat=categoryRepo.findById(id);
         if(cat.isPresent()){
             Category cat1=cat.get();
             CategoryDto categoryDto=categoryTdto(cat1);
@@ -43,7 +43,7 @@ public class CategorySeriveImp  implements categoryService {
 
     @Override
     public ResponseEntity<?> updateCategory(Long id, CategoryDto categoryDto) {
-        Optional<Category>category=categoryRepo.findById(Math.toIntExact(id));
+        Optional<Category>category=categoryRepo.findById(id);
         if(category.isPresent()){
             Category cat=category.get();
             cat.setCategorytitle(categoryDto.getCategorytitle());
@@ -58,9 +58,9 @@ public class CategorySeriveImp  implements categoryService {
 
     @Override
     public ResponseEntity<?> deleteCategory(Long id) {
-        Optional<Category>category=categoryRepo.findById(Math.toIntExact(id));
+        Optional<Category>category=categoryRepo.findById(id);
         if(category.isPresent()){
-            categoryRepo.deleteById(Math.toIntExact(id));
+            categoryRepo.deleteById(id);
             return new ResponseEntity<>("Category Deleted",HttpStatus.OK);
         }
         return new ResponseEntity<>("Category not Found",HttpStatus.NOT_FOUND);

@@ -6,7 +6,7 @@ import com.rio.Blogging.website.DTO.UserDto;
 import org.springframework.http.ResponseEntity;
 
 public interface postService {
-    public ResponseEntity<?> createPost(PostDto postDto);
+    public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId);
     public ResponseEntity<?> updatePost(Long id, PostDto postDto);
     public ResponseEntity<?> deletePost(Long id);
     public ResponseEntity<?> getAllPosts();

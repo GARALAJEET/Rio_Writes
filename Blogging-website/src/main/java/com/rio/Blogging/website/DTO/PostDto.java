@@ -1,5 +1,7 @@
 package com.rio.Blogging.website.DTO;
 
+import com.rio.Blogging.website.Modal.Category;
+import com.rio.Blogging.website.Modal.User;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,22 +11,37 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostDto {
-    private Long postId;
     @NotEmpty(message = "Post title can't be empty")
     private String title;
     @NotNull(message = "Post content can't be null")
     private String content;
     private String imageUrl;
-    private LocalDateTime addedDate;
+    private  LocalDateTime addedDate;
+    private User user;
+    private Category category;
 
-    public Long getPostId() {
-        return postId;
+    public User getUser() {
+        return user;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public LocalDateTime getAddedDate() {
+        return addedDate;
+    }
+    public void setAddedDate(LocalDateTime addedDate) {
+        this.addedDate = addedDate;
+    }
     public String getTitle() {
         return title;
     }
@@ -49,11 +66,5 @@ public class PostDto {
         this.imageUrl = imageUrl;
     }
 
-    public LocalDateTime getAddedDate() {
-        return addedDate;
-    }
 
-    public void setAddedDate( LocalDateTime addedDate) {
-        this.addedDate = addedDate;
-    }
 }
