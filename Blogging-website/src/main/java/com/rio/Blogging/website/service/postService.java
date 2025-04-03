@@ -10,7 +10,7 @@ public interface postService {
     public ResponseEntity<?> updatePost(Long id, PostDto postDto);
     public ResponseEntity<?> deletePost(Long id);
     public ResponseEntity<?> getAllPosts();
-    public ResponseEntity<?> getPost(Long id);
+    public ResponseEntity<?> getPostBYID(Long id);
     public ResponseEntity<?> getPostsByUser(UserDto userDto);
     public ResponseEntity<?>getPostsByCategory(CategoryDto categoryDto);
 }

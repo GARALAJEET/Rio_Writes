@@ -1,5 +1,6 @@
 package com.rio.Blogging.website.Modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,8 @@ public class Category {
     private Long categoryid;
     private String categorytitle;
     private String categotydescription;
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Post> posts=new ArrayList<>();
 
     public Long getCategoryid() {

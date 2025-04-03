@@ -38,10 +38,6 @@ public class PostSericeImp implements postService {
             Optional<User> user=userRepo.findById(Math.toIntExact(userId));
             if(user.isPresent()){
                 post.setUser(user.get());
-                Post post1=postRepo.save(post);
-                if(post1!=null){
-                    return new ResponseEntity<>("Post Created", HttpStatus.CREATED);
-                }
             }
             else {
                 return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
@@ -61,9 +57,14 @@ public class PostSericeImp implements postService {
     }
 
     @Override
-    public ResponseEntity<?> getPost(Long id) {
-        // Implementation here
-        return null;
+    public ResponseEntity<?> getPostBYID(Long id) {
+        Optional<Post> post = postRepo.findById(id);
+        if (post.isPresent()) {
+            Post post1 = post.get();
+            PostDto postDto = postToDTo(post1);
+            return ResponseEntity.ok(postDto);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not Found");
     }
 
     @Override
@@ -75,6 +76,7 @@ public class PostSericeImp implements postService {
     public ResponseEntity<?> getPostsByCategory(CategoryDto categoryDto) {
         return null;
     }
+
 
     @Override
     public ResponseEntity<?> updatePost(Long id, PostDto postDto) {

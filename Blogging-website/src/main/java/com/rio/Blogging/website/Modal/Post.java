@@ -1,5 +1,6 @@
 package com.rio.Blogging.website.Modal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
