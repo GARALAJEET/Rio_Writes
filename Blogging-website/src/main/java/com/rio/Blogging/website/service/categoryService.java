@@ -11,4 +11,5 @@ public interface categoryService {
     public ResponseEntity<?> deleteCategory(Long id);
     public ResponseEntity<?> getAllCategories();
 
+
 }

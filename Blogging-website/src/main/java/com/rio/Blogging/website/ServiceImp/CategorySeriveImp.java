@@ -79,6 +79,7 @@ public class CategorySeriveImp  implements categoryService {
         }
         return new ResponseEntity<>("Category not Found",HttpStatus.NOT_FOUND);
     }
+
     public CategoryDto categoryTdto(Category category){
         CategoryDto categoryDto=modelMapper.map(category,CategoryDto.class);
         return categoryDto;

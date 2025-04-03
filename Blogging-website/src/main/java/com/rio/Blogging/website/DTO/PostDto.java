@@ -11,6 +11,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostDto {
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
+    }
+
+    private Long postId;
     @NotEmpty(message = "Post title can't be empty")
     private String title;
     @NotNull(message = "Post content can't be null")

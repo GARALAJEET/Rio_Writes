@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,30 +33,35 @@ public class PostSericeImp implements postService {
     private categoryRepo c;
     @Override
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
-        Post post=DtoToPost(postDto);
-        Optional<Category> category=c.findById(userId);
-        if(category.isPresent()){
-            post.setCategory(category.get());
-            Optional<User> user=userRepo.findById(Math.toIntExact(userId));
-            if(user.isPresent()){
-                post.setUser(user.get());
-            }
-            else {
-                return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
-            }
-        }
-        else {
+        Post post = DtoToPost(postDto);
+
+        // Fix: Use categoryId to find category
+        Optional<Category> category = c.findById(categoryId);
+        if (category.isEmpty()) {
             return new ResponseEntity<>("Category not Found", HttpStatus.NOT_FOUND);
         }
-        LocalDateTime localDateTime = LocalDateTime.now();
-        post.setAddedDate(localDateTime);
 
-        Post post1=postRepo.save(post);
-        if(post1!=null){
+        // Fix: Use userId to find user
+        Optional<User> user = userRepo.findById(Math.toIntExact(userId));
+        if (user.isEmpty()) {
+            return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
+        }
+
+        // Setting user and category correctly
+        post.setCategory(category.get());
+        post.setUser(user.get());
+
+        // Setting current timestamp
+        post.setAddedDate(LocalDateTime.now());
+
+        // Saving post
+        Post savedPost = postRepo.save(post);
+        if (savedPost != null) {
             return new ResponseEntity<>("Post Created", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Post not Created", HttpStatus.BAD_REQUEST);
     }
+
 
     @Override
     public ResponseEntity<?> getPostBYID(Long id) {
@@ -68,32 +75,98 @@ public class PostSericeImp implements postService {
     }
 
     @Override
-    public ResponseEntity<?> getPostsByUser(UserDto userDto) {
-        return null;
+    public ResponseEntity<?> getPostsByUser( Long userId) {
+//        User user = modelMapper.map(userDto, User.class);
+        Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
+        List<Post> posts = postRepo.findByUser(userOpt.get());
+        if(!posts.isEmpty()){
+            List<PostDto> postDtos = new ArrayList<>();
+            for (Post post : posts) {
+                PostDto postDto = postToDTo(post);
+                postDtos.add(postDto);
+            }
+            return new ResponseEntity<>(postDtos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No Posts Found for this User", HttpStatus.NOT_FOUND);
     }
 
     @Override
-    public ResponseEntity<?> getPostsByCategory(CategoryDto categoryDto) {
-        return null;
+    public ResponseEntity<?> getPostsByCategory(Long categoryId) {
+        Optional<Category>category=c.findById(categoryId);
+        if(!category.isPresent()){
+            return new ResponseEntity<>("Category not Found",HttpStatus.NOT_FOUND);
+        }
+        List<Post> posts = postRepo.findByCategory(category.get());
+        if (posts!=null) {
+            List<PostDto> postDtos = new ArrayList<>();
+            for (Post post : posts) {
+                PostDto postDto = postToDTo(post);
+                postDtos.add(postDto);
+            }
+            return new ResponseEntity<>(postDtos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No Posts Found for this Category", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<?> DeleteAllPost() {
+        List<Post> posts = postRepo.findAll();
+        if (posts != null) {
+            postRepo.deleteAll(posts);
+            return new ResponseEntity<>("All Posts Deleted", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No Posts Found", HttpStatus.NOT_FOUND);
     }
 
 
     @Override
     public ResponseEntity<?> updatePost(Long id, PostDto postDto) {
-        // Implementation here
-        return null;
+        Optional<Post> postOpt = postRepo.findById(id);
+
+        if(postOpt.isPresent()){
+            Post existingPost = postOpt.get();
+            if(postDto.getTitle() != null){
+                existingPost.setTitle(postDto.getTitle());
+            }
+            if(postDto.getContent() != null){
+                existingPost.setContent(postDto.getContent());
+            }
+            if(postDto.getImageUrl() != null){
+                existingPost.setImageUrl(postDto.getImageUrl());
+            }
+            existingPost.setAddedDate(LocalDateTime.now());
+            Post updatedPost = postRepo.save(existingPost);
+            if(updatedPost != null){
+                return new ResponseEntity<>("Post Updated", HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>("Post not Found", HttpStatus.NOT_FOUND);
+
     }
 
     @Override
     public ResponseEntity<?> deletePost(Long id) {
-        // Implementation here
-        return null;
+        Optional<Post> post = postRepo.findById(id);
+        if (post.isPresent()) {
+            postRepo.delete(post.get());
+            return new ResponseEntity<>("Post Deleted", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Post not Found", HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity<?> getAllPosts() {
-        // Implementation here
-        return null;
+        List<Post> posts = postRepo.findAll();
+        if(!posts.isEmpty()){
+            List<PostDto>postDtos=new ArrayList<>();
+           for(Post post:posts){
+               PostDto postDto=postToDTo(post);
+               postDtos.add(postDto);
+           }
+            return new ResponseEntity<>(postDtos,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No Posts Found",HttpStatus.NOT_FOUND);
     }
     public  PostDto postToDTo(Post post){
 
@@ -104,4 +177,5 @@ public class PostSericeImp implements postService {
         Post post=modelMapper.map(postDto,Post.class);
         return post;
     }
+
 }
