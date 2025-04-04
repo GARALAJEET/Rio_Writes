@@ -6,6 +6,7 @@ import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.Category;
 import com.rio.Blogging.website.Modal.Post;
 import com.rio.Blogging.website.Modal.User;
+import com.rio.Blogging.website.Response.postResponse;
 import com.rio.Blogging.website.repo.categoryRepo;
 import com.rio.Blogging.website.repo.postRepo;
 import com.rio.Blogging.website.repo.userRepo;
@@ -73,8 +74,11 @@ public class PostSericeImp implements postService {
     }
 
     @Override
-    public ResponseEntity<?> getPostsByUser( Long userId) {
+    public ResponseEntity<?> getPostsByUser( Long userId,Long pageSize,Long pageNumber) {
+
+        //UserDto userDto = userToUserDto(user.get());
 //        User user = modelMapper.map(userDto, User.class);
+
         Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
         List<Post> posts = postRepo.findByUser(userOpt.get());
         if(!posts.isEmpty()){
@@ -196,6 +200,7 @@ public class PostSericeImp implements postService {
     @Override
     public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy) {
         List<String>validEnter= Arrays.asList("id","title","content","acceding","decending");
+        postResponse postResponseDto=new postResponse();
         if(!validEnter.contains(sortBy)){
             return new ResponseEntity<>("Invalid Sort By",HttpStatus.BAD_REQUEST);
         }
@@ -207,7 +212,14 @@ public class PostSericeImp implements postService {
                PostDto postDto=postToDTo(post);
                postDtos.add(postDto);
            }
-            return new ResponseEntity<>(postDtos,HttpStatus.OK);
+           postResponseDto.setContent(postDtos);
+              postResponseDto.setPageNumber(Math.toIntExact(pageNumber));
+                postResponseDto.setPageSize(Math.toIntExact(pageSize));
+                postResponseDto.setTotalElements(postRepo.findAll(pageable).getTotalElements());
+                postResponseDto.setTotalPages(postRepo.findAll(pageable).getTotalPages());
+                postResponseDto.setLastPage(postRepo.findAll(pageable).isLast());
+                postResponseDto.setFirstPage(postRepo.findAll(pageable).isFirst());
+            return new ResponseEntity<>(postResponseDto,HttpStatus.OK);
         }
         return new ResponseEntity<>("No Posts Found",HttpStatus.NOT_FOUND);
     }

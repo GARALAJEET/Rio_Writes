@@ -37,8 +37,10 @@ public class PostController {
         return postService.deletePost(id);
     }
     @GetMapping("/getPostsByUser/{userId}")
-    public ResponseEntity<?> getPostsByUser(@PathVariable Long userId) {
-        return postService.getPostsByUser(userId);
+    public ResponseEntity<?> getPostsByUser(@PathVariable Long userId,
+                                            @RequestParam (value = "pageSize",defaultValue = "5",required = false) Long pageSize,
+                                            @RequestParam (value = "pageNumber",defaultValue = "0",required = false) Long pageNumber){
+        return postService.getPostsByUser(userId, pageSize, pageNumber);
     }
     @GetMapping("/getPostsByCategory/{categoryId}")
     public ResponseEntity<?> getPostsByCategory(@PathVariable Long categoryId) {

@@ -11,7 +11,7 @@ public interface postService {
     public ResponseEntity<?> deletePost(Long id);
     public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy);
     public ResponseEntity<?> getPostBYID(Long id);
-    public ResponseEntity<?> getPostsByUser(Long userId);
+    public ResponseEntity<?> getPostsByUser(Long userId,Long pageSize,Long pageNumber);
     public ResponseEntity<?>getPostsByCategory(Long categoryId);
     public ResponseEntity<?> DeleteAllPost();
     public ResponseEntity<?> getPostByTitle(String keyword);
