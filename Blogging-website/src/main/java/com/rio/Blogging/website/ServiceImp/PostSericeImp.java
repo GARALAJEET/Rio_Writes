@@ -75,12 +75,10 @@ public class PostSericeImp implements postService {
 
     @Override
     public ResponseEntity<?> getPostsByUser( Long userId,Long pageSize,Long pageNumber) {
-
-        //UserDto userDto = userToUserDto(user.get());
-//        User user = modelMapper.map(userDto, User.class);
-
+        postResponse postResponseDto = new postResponse();
+        Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
-        List<Post> posts = postRepo.findByUser(userOpt.get());
+        List<Post> posts = postRepo.findByUser(userOpt.get(), pageable);
         if(!posts.isEmpty()){
             List<PostDto> postDtos = new ArrayList<>();
             for (Post post : posts) {
