@@ -118,6 +118,46 @@ public class PostSericeImp implements postService {
         return new ResponseEntity<>("No Posts Found", HttpStatus.NOT_FOUND);
     }
 
+    @Override
+    public ResponseEntity<?> getPostByTitle(String title) {
+        List<Post>posts=postRepo.findAll();
+
+        if(posts!=null){
+            List<PostDto>postDtos=new ArrayList<>();
+            for(int i=0;i<posts.size();i++){
+                PostDto postDto=postToDTo(posts.get(i));
+                String currentTitle=postDto.getTitle().toLowerCase().replace(" ","");
+                String Title=title.toLowerCase().replace(" ","");
+                if(currentTitle.contains(Title)){
+                    postDtos.add(postDto);
+                }
+            }
+            return new ResponseEntity<>(postDtos,HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>("No Posts Found",HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<?> getPostByKeyword(String keyword) {
+        List<Post>posts=postRepo.findAll();
+
+        if(posts!=null){
+            List<PostDto>postDtos=new ArrayList<>();
+            for(int i=0;i<posts.size();i++){
+                PostDto postDto=postToDTo(posts.get(i));
+                String currentContent=postDto.getContent().toLowerCase().replace(" ","");
+                String Keyword=keyword.toLowerCase().replace(" ","");
+                if(currentContent.contains(Keyword)){
+                    postDtos.add(postDto);
+                }
+            }
+            return new ResponseEntity<>(postDtos,HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>("No Posts Found",HttpStatus.NOT_FOUND);
+    }
+
 
     @Override
     public ResponseEntity<?> updatePost(Long id, PostDto postDto) {

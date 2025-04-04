@@ -14,4 +14,6 @@ public interface postService {
     public ResponseEntity<?> getPostsByUser(Long userId);
     public ResponseEntity<?>getPostsByCategory(Long categoryId);
     public ResponseEntity<?> DeleteAllPost();
+    public ResponseEntity<?> getPostByTitle(String keyword);
+    public ResponseEntity<?>getPostByKeyword(String keyword);
 }

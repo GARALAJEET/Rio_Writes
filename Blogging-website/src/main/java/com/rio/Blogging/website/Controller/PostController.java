@@ -46,5 +46,13 @@ public class PostController {
     public ResponseEntity<?> deleteAllPosts() {
         return postService.DeleteAllPost();
     }
+    @GetMapping("/getPostByTitle/{title}")
+    public ResponseEntity<?> getPostByTitle(@PathVariable String title) {
+        return postService.getPostByTitle(title);
+    }
+    @GetMapping("/getPostByKeyword/{keyword}")
+    public ResponseEntity<?> getPostByKeyword(@PathVariable String keyword) {
+        return postService.getPostByKeyword(keyword);
+    }
 
 }
