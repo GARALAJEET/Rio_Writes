@@ -12,6 +12,8 @@ import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.service.postService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,26 +37,21 @@ public class PostSericeImp implements postService {
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
         Post post = DtoToPost(postDto);
 
-        // Fix: Use categoryId to find category
+
         Optional<Category> category = c.findById(categoryId);
         if (category.isEmpty()) {
             return new ResponseEntity<>("Category not Found", HttpStatus.NOT_FOUND);
         }
 
-        // Fix: Use userId to find user
+
         Optional<User> user = userRepo.findById(Math.toIntExact(userId));
         if (user.isEmpty()) {
             return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
         }
 
-        // Setting user and category correctly
         post.setCategory(category.get());
         post.setUser(user.get());
-
-        // Setting current timestamp
         post.setAddedDate(LocalDateTime.now());
-
-        // Saving post
         Post savedPost = postRepo.save(post);
         if (savedPost != null) {
             return new ResponseEntity<>("Post Created", HttpStatus.CREATED);
@@ -196,8 +193,9 @@ public class PostSericeImp implements postService {
     }
 
     @Override
-    public ResponseEntity<?> getAllPosts() {
-        List<Post> posts = postRepo.findAll();
+    public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber) {
+        Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
+        List<Post> posts = postRepo.findAll(pageable).getContent();
         if(!posts.isEmpty()){
             List<PostDto>postDtos=new ArrayList<>();
            for(Post post:posts){

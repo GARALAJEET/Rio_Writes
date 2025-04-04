@@ -23,8 +23,9 @@ public class PostController {
         return postService.getPostBYID(id);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<?> getAllPost(){
-        return postService.getAllPosts();
+    public ResponseEntity<?> getAllPost(@RequestParam(value = "pageSize",defaultValue = "5",required = false) Long pageSize
+            , @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Long pageNumber) {
+        return postService.getAllPosts(pageSize, pageNumber);
     }
     @PutMapping("/updatePost/{id}")
     public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostDto postDto) {
@@ -54,5 +55,6 @@ public class PostController {
     public ResponseEntity<?> getPostByKeyword(@PathVariable String keyword) {
         return postService.getPostByKeyword(keyword);
     }
+
 
 }
