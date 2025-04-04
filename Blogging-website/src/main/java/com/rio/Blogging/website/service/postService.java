@@ -9,7 +9,7 @@ public interface postService {
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId);
     public ResponseEntity<?> updatePost(Long id, PostDto postDto);
     public ResponseEntity<?> deletePost(Long id);
-    public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber);
+    public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy);
     public ResponseEntity<?> getPostBYID(Long id);
     public ResponseEntity<?> getPostsByUser(Long userId);
     public ResponseEntity<?>getPostsByCategory(Long categoryId);

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -193,7 +194,11 @@ public class PostSericeImp implements postService {
     }
 
     @Override
-    public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber) {
+    public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy) {
+        List<String>validEnter= Arrays.asList("id","title","content","acceding","decending");
+        if(!validEnter.contains(sortBy)){
+            return new ResponseEntity<>("Invalid Sort By",HttpStatus.BAD_REQUEST);
+        }
         Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         List<Post> posts = postRepo.findAll(pageable).getContent();
         if(!posts.isEmpty()){

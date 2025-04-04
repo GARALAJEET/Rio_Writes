@@ -24,8 +24,9 @@ public class PostController {
     }
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllPost(@RequestParam(value = "pageSize",defaultValue = "5",required = false) Long pageSize
-            , @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Long pageNumber) {
-        return postService.getAllPosts(pageSize, pageNumber);
+            , @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Long pageNumber,
+                                        @RequestParam(value = "sortBy",defaultValue = "id",required = false) String sortBy){
+        return postService.getAllPosts(pageSize, pageNumber, sortBy);
     }
     @PutMapping("/updatePost/{id}")
     public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostDto postDto) {
