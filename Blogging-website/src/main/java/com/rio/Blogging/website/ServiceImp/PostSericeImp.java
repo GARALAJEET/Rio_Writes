@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -79,32 +80,52 @@ public class PostSericeImp implements postService {
         postResponse postResponseDto = new postResponse();
         Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
-        List<Post> posts = postRepo.findByUser(userOpt.get(), pageable);
+        Page<Post> posts = postRepo.findByUser(userOpt.get(), pageable);
+        List<PostDto> postDtos = new ArrayList<>();
         if(!posts.isEmpty()){
-            List<PostDto> postDtos = new ArrayList<>();
+
             for (Post post : posts) {
                 PostDto postDto = postToDTo(post);
                 postDtos.add(postDto);
             }
-            return new ResponseEntity<>(postDtos, HttpStatus.OK);
+            postResponseDto.setContent(postDtos);
+            postResponseDto.setPageNumber(Math.toIntExact(pageNumber));
+            postResponseDto.setPageSize(Math.toIntExact(pageSize));
+            postResponseDto.setTotalElements(posts.getTotalElements());
+            postResponseDto.setTotalPages(posts.getTotalPages());
+            postResponseDto.setLastPage(posts.isLast());
+            postResponseDto.setFirstPage(posts.isFirst());
+
+            return new ResponseEntity<>(postResponseDto, HttpStatus.OK);
         }
+
         return new ResponseEntity<>("No Posts Found for this User", HttpStatus.NOT_FOUND);
     }
 
     @Override
-    public ResponseEntity<?> getPostsByCategory(Long categoryId) {
+    public ResponseEntity<?> getPostsByCategory(Long categoryId ,Long pageSize, Long pageNumber) {
         Optional<Category>category=c.findById(categoryId);
         if(!category.isPresent()){
             return new ResponseEntity<>("Category not Found",HttpStatus.NOT_FOUND);
         }
-        List<Post> posts = postRepo.findByCategory(category.get());
+        Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
+
+        Page<Post> posts = postRepo.findByCategory(category.get(),pageable);
+        postResponse postResponseDto=new postResponse();
         if (posts!=null) {
             List<PostDto> postDtos = new ArrayList<>();
             for (Post post : posts) {
                 PostDto postDto = postToDTo(post);
                 postDtos.add(postDto);
             }
-            return new ResponseEntity<>(postDtos, HttpStatus.OK);
+            postResponseDto.setContent(postDtos);
+            postResponseDto.setPageSize(Math.toIntExact(pageSize));
+            postResponseDto.setPageNumber(Math.toIntExact(pageNumber));
+            postResponseDto.setTotalPages(posts.getTotalPages());
+            postResponseDto.setTotalElements(posts.getTotalElements());
+            postResponseDto.setFirstPage(posts.isFirst());
+            postResponseDto.setLastPage(posts.isLast());
+            return new ResponseEntity<>(postResponseDto, HttpStatus.OK);
         }
         return new ResponseEntity<>("No Posts Found for this Category", HttpStatus.NOT_FOUND);
     }
