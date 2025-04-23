@@ -2,6 +2,7 @@ package com.rio.Blogging.website.ServiceImp;
 
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
+import com.rio.Blogging.website.feature.emailSender;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.service.userService;
 import org.modelmapper.ModelMapper;
@@ -10,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserserviceImp implements userService {
@@ -24,9 +28,10 @@ public class UserserviceImp implements userService {
     private ModelMapper modelMapper;
     @Autowired
     private JavaMailSender javaMailSender;
-
+    @Autowired
+    private emailSender mailsender;
     @Override
-    public ResponseEntity<String> createUser(UserDto user) {
+    public ResponseEntity<?> createUser(UserDto user)  {
         User cur_user=dtoToUser(user);
         Optional<User> s1=userRepo.findByEmail(user.getEmail());
         if(s1.isPresent()){
@@ -38,20 +43,46 @@ public class UserserviceImp implements userService {
         }
         User us=userRepo.save(cur_user);
         if(us!=null){
-
+            CompletableFuture<Boolean> ans=mailsender.mailsend(cur_user);
+            boolean finalans=true;
             try {
-                 SimpleMailMessage msg = new SimpleMailMessage();
-                 msg.setTo(cur_user.getEmail());
-                 msg.setSubject("Registration Successful");
-                 msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
-                 javaMailSender.send(msg);
-            } catch (Exception e) {
-                return new ResponseEntity<>("Registration Failed", HttpStatus.BAD_REQUEST);
+                finalans=ans.get();
+            } catch (InterruptedException | ExecutionException e) {
+                return new ResponseEntity<>("User Created but mail not sent", HttpStatus.CREATED);
             }
-            return new ResponseEntity<>("User Created", HttpStatus.CREATED);
+            if (finalans) {
+                return new ResponseEntity<>("User Created", HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("User Created but mail not sent", HttpStatus.CREATED);
+            }
+//            try {
+//                 SimpleMailMessage msg = new SimpleMailMessage();
+//                 msg.setTo(cur_user.getEmail());
+//                 msg.setSubject("Registration Successful");
+//                 msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
+//                 javaMailSender.send(msg);
+//            } catch (Exception e) {
+//                return new ResponseEntity<>("Registration Failed", HttpStatus.BAD_REQUEST);
+//            }
+//            return new ResponseEntity<>("User Created", HttpStatus.CREATED);
         }
-        return new ResponseEntity<>("User not Created",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("User   not Created",HttpStatus.BAD_REQUEST);
     }
+//    @Async
+//     public CompletableFuture<Boolean> mailsend(User cur_user){
+//
+//        try {
+//            SimpleMailMessage msg = new SimpleMailMessage();
+//            msg.setTo(cur_user.getEmail());
+//            msg.setSubject("Registration Successful");
+//            msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
+//            javaMailSender.send(msg);
+//        } catch (Exception e) {
+//            return CompletableFuture.completedFuture(false);
+//        }
+//        return  CompletableFuture.completedFuture(true);
+//    }
 
     @Override
     public ResponseEntity<?> getUser(Long id) {
