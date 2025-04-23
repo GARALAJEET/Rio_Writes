@@ -56,33 +56,11 @@ public class UserserviceImp implements userService {
             else {
                 return new ResponseEntity<>("User Created but mail not sent", HttpStatus.CREATED);
             }
-//            try {
-//                 SimpleMailMessage msg = new SimpleMailMessage();
-//                 msg.setTo(cur_user.getEmail());
-//                 msg.setSubject("Registration Successful");
-//                 msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
-//                 javaMailSender.send(msg);
-//            } catch (Exception e) {
-//                return new ResponseEntity<>("Registration Failed", HttpStatus.BAD_REQUEST);
-//            }
-//            return new ResponseEntity<>("User Created", HttpStatus.CREATED);
+//
         }
         return new ResponseEntity<>("User   not Created",HttpStatus.BAD_REQUEST);
     }
-//    @Async
-//     public CompletableFuture<Boolean> mailsend(User cur_user){
-//
-//        try {
-//            SimpleMailMessage msg = new SimpleMailMessage();
-//            msg.setTo(cur_user.getEmail());
-//            msg.setSubject("Registration Successful");
-//            msg.setText("Hello "+cur_user.getusername()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
-//            javaMailSender.send(msg);
-//        } catch (Exception e) {
-//            return CompletableFuture.completedFuture(false);
-//        }
-//        return  CompletableFuture.completedFuture(true);
-//    }
+
 
     @Override
     public ResponseEntity<?> getUser(Long id) {
