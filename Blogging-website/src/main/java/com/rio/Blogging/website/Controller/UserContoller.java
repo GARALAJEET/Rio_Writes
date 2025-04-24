@@ -18,10 +18,7 @@ public class UserContoller {
         return "Hello from Rio";
     }
     @PostMapping("/newUser")
-    public ResponseEntity<?> createUser( @Valid  @RequestBody UserDto userDto){
-
-        return userserviceImp.createUser(userDto);
-    }
+    public ResponseEntity<?> createUser( @Valid  @RequestBody UserDto userDto){return userserviceImp.createUser(userDto);}
     @GetMapping("/getUser/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         return userserviceImp.getUser(id);
