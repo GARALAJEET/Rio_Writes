@@ -16,7 +16,8 @@ public class otp_verification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long otp_id;
-    Long otp;
+    String username;
+    String otp;
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime createdAt;
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,11 +31,11 @@ public class otp_verification {
         this.otp_id = otp_id;
     }
 
-    public Long getOtp() {
+    public String getOtp() {
         return otp;
     }
 
-    public void setOtp(Long otp) {
+    public void setOtp(String otp) {
         this.otp = otp;
     }
 

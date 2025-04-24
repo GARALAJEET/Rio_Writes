@@ -3,5 +3,9 @@ package com.rio.Blogging.website.repo;
 import com.rio.Blogging.website.Modal.otp_verification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface otpRepo extends JpaRepository<Long, otp_verification> {
+import java.util.Optional;
+
+public interface otpRepo extends JpaRepository<otp_verification,Long> {
+
+   Optional<otp_verification> findByUsername(String username);
 }

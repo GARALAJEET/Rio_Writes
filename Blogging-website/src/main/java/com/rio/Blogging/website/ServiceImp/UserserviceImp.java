@@ -2,7 +2,9 @@ package com.rio.Blogging.website.ServiceImp;
 
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
+import com.rio.Blogging.website.Modal.otp_verification;
 import com.rio.Blogging.website.feature.emailSender;
+import com.rio.Blogging.website.feature.otpGenerator;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.service.userService;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,8 @@ public class UserserviceImp implements userService {
     private JavaMailSender javaMailSender;
     @Autowired
     private emailSender mailsender;
+    @Autowired
+    private otpGenerator optgen;
     @Override
     public ResponseEntity<?> createUser(UserDto user)  {
         User cur_user=dtoToUser(user);
@@ -41,6 +45,9 @@ public class UserserviceImp implements userService {
         if(s2.isPresent()){
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
+//        String curOTP=optgen.generateOPT(cur_user.getusername());
+//        boolean ansOTP=optgen.validateOTP(cur_user.getusername(), curOTP);
+
         User us=userRepo.save(cur_user);
         if(us!=null){
             CompletableFuture<Boolean> ans=mailsender.mailsend(cur_user);

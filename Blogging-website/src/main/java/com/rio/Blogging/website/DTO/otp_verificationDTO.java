@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class otp_verificationDTO {
     Long otp_id;
-    Long otp;
+    String username;
+    String otp;
     LocalDateTime createdAt;
     LocalDateTime expireAt;
 
@@ -29,11 +30,11 @@ public class otp_verificationDTO {
         this.otp_id = otp_id;
     }
 
-    public Long getOtp() {
+    public String getOtp() {
         return otp;
     }
 
-    public void setOtp(Long otp) {
+    public void setOtp(String otp) {
         this.otp = otp;
     }
 
