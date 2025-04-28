@@ -25,6 +25,7 @@ public class UserDto {
     private String password;
     @NotEmpty(message = "About can't be empty")
     private String about;
+    private  boolean isvarified=false;
 
     public Long getId() {
         return id;
@@ -38,7 +39,7 @@ public class UserDto {
         return username;
     }
 
-    public void setName(String username) {
+    public void setusername(String username) {
         this.username = username;
     }
 
@@ -66,5 +67,11 @@ public class UserDto {
         this.about = about;
     }
 
+    public boolean isIsvarified() {
+        return isvarified;
+    }
 
+    public void setIsvarified(boolean isvarified) {
+        this.isvarified = isvarified;
+    }
 }

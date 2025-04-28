@@ -3,9 +3,13 @@ package com.rio.Blogging.website.ServiceImp;
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.Modal.otp_verification;
+//import com.rio.Blogging.website.ReqObj.validOTP;
+import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.feature.emailSender;
 import com.rio.Blogging.website.feature.otpGenerator;
+import com.rio.Blogging.website.repo.otpRepo;
 import com.rio.Blogging.website.repo.userRepo;
+import com.rio.Blogging.website.resMsg.validOtp;
 import com.rio.Blogging.website.service.userService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,8 @@ public class UserserviceImp implements userService {
     @Autowired
     private userRepo userRepo;
     @Autowired
+    private otpRepo otpRepo;
+    @Autowired
     private ModelMapper modelMapper;
     @Autowired
     private JavaMailSender javaMailSender;
@@ -35,37 +41,60 @@ public class UserserviceImp implements userService {
     @Autowired
     private otpGenerator optgen;
     @Override
-    public ResponseEntity<?> createUser(UserDto user)  {
-        User cur_user=dtoToUser(user);
-        Optional<User> s1=userRepo.findByEmail(user.getEmail());
-        if(s1.isPresent()){
+    public ResponseEntity<?> createNewUser(UserDto user) {
+        User cur_user = dtoToUser(user);
+        Optional<User> s1 = userRepo.findByEmail(user.getEmail());
+        if (s1.isPresent()) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
         }
-        Optional<User>s2=userRepo.findByUsername(user.getusername());
-        if(s2.isPresent()){
+        Optional<User> s2 = userRepo.findByUsername(user.getusername());
+        if (s2.isPresent()) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
-//        String curOTP=optgen.generateOPT(cur_user.getusername());
-//        boolean ansOTP=optgen.validateOTP(cur_user.getusername(), curOTP);
 
-        User us=userRepo.save(cur_user);
-        if(us!=null){
-            CompletableFuture<Boolean> ans=mailsender.mailsend(cur_user);
-            boolean finalans=true;
-            try {
-                finalans=ans.get();
-            } catch (InterruptedException | ExecutionException e) {
-                return new ResponseEntity<>("User Created but mail not sent", HttpStatus.CREATED);
-            }
-            if (finalans) {
-                return new ResponseEntity<>("User Created", HttpStatus.CREATED);
-            }
-            else {
-                return new ResponseEntity<>("User Created but mail not sent", HttpStatus.CREATED);
-            }
-//
+        userRepo.save(cur_user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+   public ResponseEntity<?>sentOTP(UserDto userDto){
+       String opt=optgen.generateOPT(userDto);
+       User u=dtoToUser(userDto);
+       boolean ansMail=mailsender.mailsendforOTP(u,opt);
+         if(ansMail){
+              return new ResponseEntity<>("OTP sent to your email",HttpStatus.OK);
+         }
+         else {
+                userRepo.delete(u);
+              return new ResponseEntity<>("Error in sending OTP",HttpStatus.BAD_REQUEST);
+         }
+
+   }
+    public ResponseEntity<?> validateOTP(validOTPObj in_otp) {
+        Optional<User> user=userRepo.findByEmail(in_otp.getEmail());
+        if(user.isEmpty()){
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("User   not Created",HttpStatus.BAD_REQUEST);
+
+        UserDto userDto=userToUserDto(user.get());
+        Optional<otp_verification> otpVerification=otpRepo.findByUsernameAndOtp(in_otp.getEmail(),in_otp.getOtp());
+        boolean ans=optgen.validateOTP(userDto.getusername(),in_otp.getOtp());
+        User cur_user1=dtoToUser(userDto);
+        if(ans){
+            cur_user1.setIsvarified(true);
+            userRepo.save(cur_user1);
+            UserDto ud=userToUserDto(cur_user1);
+            validOtp msg=new validOtp();
+            msg.setMsg("User Created");
+            msg.setUser(ud);
+            CompletableFuture<?> ans1=mailsender.wellcomeEmail(cur_user1);
+            if(ans1.isCompletedExceptionally()){
+                return new ResponseEntity<>("Error in sending email",HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(msg,HttpStatus.OK);
+        }
+        else {
+            otpRepo.delete(otpVerification.get());
+            return new ResponseEntity<>("Invalid OTP ",HttpStatus.BAD_REQUEST);
+        }
     }
 
 
@@ -79,7 +108,6 @@ public class UserserviceImp implements userService {
         else {
             return new ResponseEntity<>("user not found",HttpStatus.NOT_FOUND);
         }
-//
     }
 
     @Override
@@ -88,8 +116,6 @@ public class UserserviceImp implements userService {
 
         if (userOpt.isPresent()) {
             User existingUser = userOpt.get();
-
-
             existingUser.setUsername(userdto.getusername());
             existingUser.setEmail(userdto.getEmail());
             existingUser.setAbout(userdto.getAbout());

@@ -1,24 +1,40 @@
 package com.rio.Blogging.website.Controller;
 
 import com.rio.Blogging.website.DTO.UserDto;
+import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ServiceImp.UserserviceImp;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserContoller {
     @Autowired
     UserserviceImp userserviceImp = new UserserviceImp();
+//    private  final RestTemplate restTemplate;
+//    public UserContoller(RestTemplate restTemplate) {
+//        this.restTemplate = restTemplate;
+//    }
 
     @GetMapping("/Home")
     public String hello(){
         return "Hello from Rio";
     }
     @PostMapping("/newUser")
-    public ResponseEntity<?> createUser( @Valid  @RequestBody UserDto userDto){return userserviceImp.createUser(userDto);}
+    public ResponseEntity<?> createUser( @Valid  @RequestBody UserDto userDto){
+        ResponseEntity<?> ans= userserviceImp.createNewUser(userDto);
+        if(ans.getStatusCode().is2xxSuccessful()){
+            return userserviceImp.sentOTP(userDto);
+        }
+        return new ResponseEntity<>("User not created", org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
+    @PostMapping("/verifyOTP")
+    public ResponseEntity<?> verifyOTP(@RequestBody validOTPObj valid ){
+        return userserviceImp.validateOTP( valid);
+    }
     @GetMapping("/getUser/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         return userserviceImp.getUser(id);

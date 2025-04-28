@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface otpRepo extends JpaRepository<otp_verification,Long> {
 
    Optional<otp_verification> findByUsername(String username);
+   Optional<otp_verification>findByUsernameAndOtp(String username,String otp);
 }

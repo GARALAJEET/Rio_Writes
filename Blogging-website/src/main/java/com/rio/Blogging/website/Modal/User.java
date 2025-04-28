@@ -22,6 +22,17 @@ public class User {
     private  String email;
     private String password;
     private String about;
+    @Column( columnDefinition = "TINYINT(1) DEFAULT 0")
+    private  boolean isvarified;
+
+    public boolean isIsvarified() {
+        return isvarified;
+    }
+
+    public void setIsvarified(boolean isvarified) {
+        this.isvarified = isvarified;
+    }
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Post>posts=new ArrayList<>();
@@ -65,5 +76,11 @@ public class User {
         this.about = about;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
 
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }

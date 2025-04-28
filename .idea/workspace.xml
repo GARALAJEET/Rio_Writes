@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="remove commented-out email sending code in UserService implementation">
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/DTO/otp_verificationDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/otp_verification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" afterDir="false" />
+    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="otp Generator">
+      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ReqObj/validOTPObj.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/resMsg/validOtp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/DTO/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/DTO/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/DTO/otp_verificationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/DTO/otp_verificationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/otp_verification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/otp_verification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/emailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/emailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -41,7 +48,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -109,12 +116,29 @@
       <option name="project" value="LOCAL" />
       <updated>1745414826847</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="otp Generator">
+      <option name="closed" value="true" />
+      <created>1745523341722</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745523341722</updated>
+    </task>
+    <task id="LOCAL-00005" summary="otp Generator">
+      <option name="closed" value="true" />
+      <created>1745530997040</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745530997040</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="remove commented-out email sending code in UserService implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove commented-out email sending code in UserService implementation" />
+    <MESSAGE value="otp Generator" />
+    <option name="LAST_COMMIT_MESSAGE" value="otp Generator" />
   </component>
 </project>

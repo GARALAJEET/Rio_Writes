@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class otp_verificationDTO {
     Long otp_id;
+    @NotNull(message = "Username can't be empty")
     String username;
+    @NotNull(message = "OTP can't be empty")
     String otp;
     LocalDateTime createdAt;
     LocalDateTime expireAt;
