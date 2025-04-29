@@ -69,18 +69,23 @@ public class UserserviceImp implements userService {
 
    }
     public ResponseEntity<?> validateOTP(validOTPObj in_otp) {
-        Optional<User> user=userRepo.findByEmail(in_otp.getEmail());
+        Optional<User> user=userRepo.findByEmailAndIsVerifiedFalse(in_otp.getEmail());
         if(user.isEmpty()){
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
 
         UserDto userDto=userToUserDto(user.get());
-        Optional<otp_verification> otpVerification=otpRepo.findByUsernameAndOtp(in_otp.getEmail(),in_otp.getOtp());
+        Optional<otp_verification> otpVerification=otpRepo.findByUsernameAndOtp(user.get().getusername(),in_otp.getOtp());
+        System.out.printf("otpVerification: "+otpVerification);
+        if(otpVerification.isEmpty()){
+            return new ResponseEntity<>("Invalid OTP",HttpStatus.BAD_REQUEST);
+        }
         boolean ans=optgen.validateOTP(userDto.getusername(),in_otp.getOtp());
         User cur_user1=dtoToUser(userDto);
         if(ans){
             cur_user1.setIsvarified(true);
             userRepo.save(cur_user1);
+            otpRepo.delete(otpVerification.get());
             UserDto ud=userToUserDto(cur_user1);
             validOtp msg=new validOtp();
             msg.setMsg("User Created");
@@ -92,7 +97,7 @@ public class UserserviceImp implements userService {
             return new ResponseEntity<>(msg,HttpStatus.OK);
         }
         else {
-            otpRepo.delete(otpVerification.get());
+
             return new ResponseEntity<>("Invalid OTP ",HttpStatus.BAD_REQUEST);
         }
     }
