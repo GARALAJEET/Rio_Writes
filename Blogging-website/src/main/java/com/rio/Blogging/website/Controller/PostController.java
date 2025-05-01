@@ -60,6 +60,10 @@ public class PostController {
     public ResponseEntity<?> getPostByKeyword(@PathVariable String keyword) {
         return postService.getPostByKeyword(keyword);
     }
+    @DeleteMapping("/deletePostByUserId/{userId}")
+    public ResponseEntity<?> deletePostByUserId(@PathVariable Long userId) {
+        return postService.deletePostByUserId(userId);
+    }
 
 
 }

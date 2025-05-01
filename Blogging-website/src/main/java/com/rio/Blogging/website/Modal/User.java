@@ -22,10 +22,16 @@ public class User {
     private  String email;
     private String password;
     private String about;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Post>posts=new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Comment>comments=new ArrayList<>();
     @Column( columnDefinition = "TINYINT(1) DEFAULT 0")
     private  boolean isvarified;
 
-    public boolean isIsvarified() {
+    public boolean getIsIsvarified() {
         return isvarified;
     }
 
@@ -33,9 +39,7 @@ public class User {
         this.isvarified = isvarified;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Post>posts=new ArrayList<>();
+
     public Long getId() {
         return id;
     }

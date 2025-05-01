@@ -1,22 +1,19 @@
 package com.rio.Blogging.website.ServiceImp;
 
-import com.rio.Blogging.website.DTO.CategoryDto;
 import com.rio.Blogging.website.DTO.PostDto;
-import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.Category;
 import com.rio.Blogging.website.Modal.Post;
 import com.rio.Blogging.website.Modal.User;
-import com.rio.Blogging.website.Response.postResponse;
 import com.rio.Blogging.website.repo.categoryRepo;
 import com.rio.Blogging.website.repo.postRepo;
 import com.rio.Blogging.website.repo.userRepo;
+import com.rio.Blogging.website.resMsg.validOtp;
 import com.rio.Blogging.website.service.postService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,19 +37,18 @@ public class PostSericeImp implements postService {
     @Override
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
         Post post = DtoToPost(postDto);
-
-
         Optional<Category> category = c.findById(categoryId);
         if (category.isEmpty()) {
             return new ResponseEntity<>("Category not Found", HttpStatus.NOT_FOUND);
         }
-
-
         Optional<User> user = userRepo.findById(Math.toIntExact(userId));
         if (user.isEmpty()) {
             return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
         }
-
+        boolean ans=user.get().getIsIsvarified();
+        if(!ans){
+            return new ResponseEntity<>("first varify your account",HttpStatus.NOT_FOUND);
+        }
         post.setCategory(category.get());
         post.setUser(user.get());
         post.setAddedDate(LocalDateTime.now());
@@ -77,9 +73,12 @@ public class PostSericeImp implements postService {
 
     @Override
     public ResponseEntity<?> getPostsByUser( Long userId,Long pageSize,Long pageNumber) {
-        postResponse postResponseDto = new postResponse();
-        Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
+        if (userOpt.isEmpty()) {
+            return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
+        }
+        validOtp.postResponse postResponseDto = new validOtp.postResponse();
+        Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         Page<Post> posts = postRepo.findByUser(userOpt.get(), pageable);
         List<PostDto> postDtos = new ArrayList<>();
         if(!posts.isEmpty()){
@@ -111,7 +110,7 @@ public class PostSericeImp implements postService {
         Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
 
         Page<Post> posts = postRepo.findByCategory(category.get(),pageable);
-        postResponse postResponseDto=new postResponse();
+        validOtp.postResponse postResponseDto=new validOtp.postResponse();
         if (posts!=null) {
             List<PostDto> postDtos = new ArrayList<>();
             for (Post post : posts) {
@@ -220,7 +219,7 @@ public class PostSericeImp implements postService {
     @Override
     public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy) {
         List<String>validEnter= Arrays.asList("id","title","content","acceding","decending");
-        postResponse postResponseDto=new postResponse();
+        validOtp.postResponse postResponseDto=new validOtp.postResponse();
         if(!validEnter.contains(sortBy)){
             return new ResponseEntity<>("Invalid Sort By",HttpStatus.BAD_REQUEST);
         }
@@ -242,6 +241,20 @@ public class PostSericeImp implements postService {
             return new ResponseEntity<>(postResponseDto,HttpStatus.OK);
         }
         return new ResponseEntity<>("No Posts Found",HttpStatus.NOT_FOUND);
+    }
+    @Override
+    public ResponseEntity<?> deletePostByUserId(Long userId){
+        Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
+     if(userOpt.isEmpty()){
+         return new ResponseEntity<>("User not Found",HttpStatus.NOT_FOUND);
+     }
+     Long uID=userOpt.get().getId();
+     Optional<Post>posts=postRepo.findById(uID);
+        if(posts.isPresent()){
+            postRepo.delete(posts.get());
+            return new ResponseEntity<>("Post Deleted",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Post not Found",HttpStatus.NOT_FOUND);
     }
     public  PostDto postToDTo(Post post){
 

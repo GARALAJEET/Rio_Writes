@@ -16,4 +16,5 @@ public interface postService {
     public ResponseEntity<?> DeleteAllPost();
     public ResponseEntity<?> getPostByTitle(String keyword);
     public ResponseEntity<?>getPostByKeyword(String keyword);
+    public ResponseEntity<?> deletePostByUserId(Long userId);
 }
