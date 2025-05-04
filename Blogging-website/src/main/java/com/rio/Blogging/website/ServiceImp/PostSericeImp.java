@@ -4,6 +4,7 @@ import com.rio.Blogging.website.DTO.PostDto;
 import com.rio.Blogging.website.Modal.Category;
 import com.rio.Blogging.website.Modal.Post;
 import com.rio.Blogging.website.Modal.User;
+import com.rio.Blogging.website.Response.postResponse;
 import com.rio.Blogging.website.repo.categoryRepo;
 import com.rio.Blogging.website.repo.postRepo;
 import com.rio.Blogging.website.repo.userRepo;
@@ -77,7 +78,7 @@ public class PostSericeImp implements postService {
         if (userOpt.isEmpty()) {
             return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
         }
-        validOtp.postResponse postResponseDto = new validOtp.postResponse();
+        postResponse postResponseDto = new postResponse();
         Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
         Page<Post> posts = postRepo.findByUser(userOpt.get(), pageable);
         List<PostDto> postDtos = new ArrayList<>();
@@ -110,7 +111,7 @@ public class PostSericeImp implements postService {
         Pageable pageable = PageRequest.of(Math.toIntExact(pageNumber), Math.toIntExact(pageSize));
 
         Page<Post> posts = postRepo.findByCategory(category.get(),pageable);
-        validOtp.postResponse postResponseDto=new validOtp.postResponse();
+        postResponse postResponseDto=new postResponse();
         if (posts!=null) {
             List<PostDto> postDtos = new ArrayList<>();
             for (Post post : posts) {
@@ -219,7 +220,7 @@ public class PostSericeImp implements postService {
     @Override
     public ResponseEntity<?> getAllPosts(Long pageSize, Long pageNumber, String sortBy) {
         List<String>validEnter= Arrays.asList("id","title","content","acceding","decending");
-        validOtp.postResponse postResponseDto=new validOtp.postResponse();
+        postResponse postResponseDto=new postResponse();
         if(!validEnter.contains(sortBy)){
             return new ResponseEntity<>("Invalid Sort By",HttpStatus.BAD_REQUEST);
         }

@@ -13,14 +13,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Comment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long CommentId;
     private String content;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime addedDate;
     @ManyToOne
+    @JoinColumn(name = "post_ID")
     private Post post;
     @ManyToOne
+    @JoinColumn(name = "user_ID")
     private User user;
+
 
     public User getUser() {
         return user;

@@ -1,6 +1,7 @@
 package com.rio.Blogging.website.Modal;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,10 @@ public class Post {
     @JoinColumn(name = "categoryid")
     private Category category;
     @ManyToOne
+    @JoinColumn(name = "userId")
     private User user;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Comment>comments;
     public Long getPostId() {
         return postId;
