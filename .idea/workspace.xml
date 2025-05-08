@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Add Comment and CommentDto classes, update Post and User models to support comments">
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Response/commentResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Response/postResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/CommentServiceImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/CommetRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/CommentService.java" afterDir="false" />
+    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Modal/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/PostSericeImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/PostSericeImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/resMsg/validOtp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/resMsg/validOtp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746125761639</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments">
+      <option name="closed" value="true" />
+      <created>1746394318604</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746394318604</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -166,6 +163,7 @@
     <MESSAGE value="Implement OTP email sending and verification functionality" />
     <MESSAGE value="Add method to find unverified user by email and update OTP validation logic" />
     <MESSAGE value="Add Comment and CommentDto classes, update Post and User models to support comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Comment and CommentDto classes, update Post and User models to support comments" />
+    <MESSAGE value="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments" />
   </component>
 </project>
