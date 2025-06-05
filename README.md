@@ -1,4 +1,4 @@
-💼 Rio Writes 
+📄 Rio Writes
 
 A powerful backend system built with Spring Boot for managing users, categories, posts, and comments. Designed for modern billing/content platforms with user verification, REST APIs, and future-ready architecture.
 
