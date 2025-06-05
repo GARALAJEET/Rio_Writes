@@ -1,128 +1,147 @@
-📄 Rio Writes
+# 📄 Rio Writes – (Backend Only)
 
-A powerful backend system built with Spring Boot for managing users, categories, posts, and comments. Designed for modern billing/content platforms with user verification, REST APIs, and future-ready architecture.
+A Spring Boot-based backend for a billing and content management platform. This project enables user registration, category and post management, and comment handling — designed for future scalability with role-based access and API security.
 
-🧠 Project Overview
-Rio Writes is a backend service that enables:
+---
 
-✅ User signup with OTP verification
-✅ Role-ready user management (Admin/User)
-✅ Category & post creation with filtering
-✅ Commenting system on posts
-✅ Clean REST API architecture
-✅ Future-proof JWT Security (planned)
+## 🚀 Features
 
-🧰 Tech Stack
-Layer	Technology
-Backend	Spring Boot
-Database	MySQL
-Email Service	JavaMailSender
-API Testing	Postman
-Architecture	RESTful APIs
+### 🔐 Authentication & User Management
+- **Sign Up**: Register a new user (`/api/newUser`)
+- **Email OTP Verification**: Sends OTP via email for verification (`/api/verifyOTP`)
+- **Post-Verification Access**: Only verified users can access full site features
 
-🔐 User Authentication & Authorization
-✅ Sign Up
-Endpoint: POST /api/newUser
+#### User Operations:
+- Create new users
+- View all users
+- Update user profiles
+- Delete user profiles
 
-Registers a new user
+> **Planned:** Role-based access control (`admin`, `user`)
 
-📩 OTP Verification
-Endpoint: POST /api/verifyOTP
+---
 
-Sends OTP to user's email and verifies them
+### 📦 Category Management
+- **Add Category**: Create a new category
+- **Get All Categories**: View all existing categories
+- **Get Category By ID**
+- **Update Category**
+- **Delete Category**
 
-👤 User Management
-Create, Update, View, and Delete users
+#### Endpoints:
+- `POST /api/category`
+- `GET /api/category/all`
+- `GET /api/category/{id}`
+- `PUT /api/category/{id}`
+- `DELETE /api/category/{id}`
 
-Planned: Role-based system (Admin, User)
+---
 
-📦 Category Management
-APIs for users to manage content categories.
+### 📝 Post Management
 
-Feature	Endpoint
-➕ Add	POST /api/category
-📖 Get All	GET /api/category/all
-🔍 Get by ID	GET /api/category/{id}
-✏️ Update	PUT /api/category/{id}
-🗑️ Delete	DELETE /api/category/{id}
+Posts are tied to both users and categories.
 
-📝 Post Management
-Posts are linked to both users and categories.
+- **Create Post**: Add a new post under a user and category
+- **Get Post By ID**
+- **Get All Posts**
+- **Update Post**
+- **Delete Post By ID**
+- **Delete All Posts**
 
-Feature	Endpoint
-➕ Create Post	POST /api/post
-📖 Get All Posts	GET /api/post/all
-🔍 Get Post by ID	GET /api/post/{id}
-🧑 Get Posts by User	GET /api/post/user/{userId}
-🏷️ Get Posts by Category	GET /api/post/category/{categoryId}
-🔠 Get Posts by Title	GET /api/post/title/{title}
-🔎 Search Posts by Keyword	GET /api/post/search/{keyword}
-✏️ Update Post	PUT /api/post/{id}
-🗑️ Delete Post by ID	DELETE /api/post/{id}
-🗑️ Delete All Posts	DELETE /api/post/all
+#### Get Posts:
+- By User
+- By Category
+- By Title
+- By Keyword
 
-💬 Comment Management
-Users can engage with posts through comments.
+#### Endpoints:
+- `POST /api/post`
+- `GET /api/post/{id}`
+- `GET /api/post/all`
+- `PUT /api/post/{id}`
+- `DELETE /api/post/{id}`
+- `GET /api/post/user/{userId}`
+- `GET /api/post/category/{categoryId}`
+- `GET /api/post/title/{title}`
+- `GET /api/post/search/{keyword}`
 
-Feature	Endpoint
-➕ Add Comment	POST /api/comment
-📖 Get Comments by Post ID	GET /api/comment/post/{postId}
-✏️ Update Comment by ID	PUT /api/comment/{commentId}
-🗑️ Delete Comment by ID	DELETE /api/comment/{commentId}
-🗑️ Delete All Comments	DELETE /api/comment/all
+---
 
-🔐 Security (Coming Soon)
-JWT Authentication for secure API access
+### 💬 Comment Management
+- **Add Comment To Post**
+- **Get Comments By Post ID**
+- **Update Comment By ID**
+- **Delete Comment By ID**
+- **Delete All Comments**
 
-Role-based authorization (ADMIN, USER)
+#### Endpoints:
+- `POST /api/comment`
+- `GET /api/comment/post/{postId}`
+- `PUT /api/comment/{commentId}`
+- `DELETE /api/comment/{commentId}`
+- `DELETE /api/comment/all`
 
-Spring Security integration
+---
+
+## 🛠️ Tech Stack
+
+| Component       | Technology       |
+|----------------|------------------|
+| Backend         | Spring Boot (Java) |
+| Database        | MySQL             |
+| Testing Tool    | Postman           |
+| Email Service   | JavaMailSender (OTP) |
+
+> **Planned Features**:
+> - JWT-based API security
+> - Admin role for advanced operations
+> - Frontend integration
+
+---
 
 
-⚙️ Getting Started
-🧬 Prerequisites
-Java 17+
-MySQL running locally
-Maven
 
-🛠️ Installation Steps
-bash
-Copy
-Edit
-# Clone the repo
+---
+
+## 🧪 API Testing
+
+Use **Postman** to test all endpoints. Ensure MySQL is running and configured in `application.properties`.
+
+**Example Postman Flows:**
+- **User Flow**: Sign up → Verify OTP → Access endpoints
+- **Category & Post Flow**: Add category → Add post → Comment
+
+---
+
+## 📌 Setup Instructions
+
+### Clone Repository
+```bash
 git clone https://github.com/GARALAJEET/Rio_Writes.git
+cd rio-writes-backend
+```
 
-# Set up MySQL DB
-# Update src/main/resources/application.properties with:
-# spring.datasource.url, username, and password
+### Set up MySQL Database
 
-# Run the app
+Update `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/your_db
+spring.datasource.username=your_user
+spring.datasource.password=your_password
+```
+
+### Run the Application
+
+```bash
 mvn spring-boot:run
-🧪 API Testing Guide
-Use Postman to test the complete API flow:
+```
 
-Sign up → /api/newUser
+---
 
-Verify OTP → /api/verifyOTP
+## ✉️ Author
 
-Use user ID to:
+**jeet Garala**  
+Developer & Creator of Rio Writes
 
-Create category
-
-Add post
-
-Add comments
-
-Explore all fetch, update, delete routes
-
-🧱 Planned Enhancements
-✅ JWT Security for APIs
-
-✅ Role-based access (Admin/User)
-
-✅ Swagger for API documentation
-
-👨‍💻 Author
-👋 Jeet Garala
-🔗 GitHub: [https://github.com/GARALAJEET]
-📧 Email: [jeetgarala2603@gmail.com]
+---
