@@ -5,6 +5,7 @@ import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.Modal.otp_verification;
 //import com.rio.Blogging.website.ReqObj.validOTP;
 import com.rio.Blogging.website.ReqObj.validOTPObj;
+import com.rio.Blogging.website.ReqObj.veriAcc;
 import com.rio.Blogging.website.feature.emailSender;
 import com.rio.Blogging.website.feature.otpGenerator;
 import com.rio.Blogging.website.repo.otpRepo;
@@ -40,6 +41,8 @@ public class UserserviceImp implements userService {
     @Autowired
     private emailSender mailsender;
     @Autowired
+    private otpRepo otprepo;
+    @Autowired
     private otpGenerator optgen;
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
     @Override
@@ -57,9 +60,18 @@ public class UserserviceImp implements userService {
         userRepo.save(cur_user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-   public ResponseEntity<?>sentOTP(UserDto userDto){
-       String opt=optgen.generateOPT(userDto);
-       User u=dtoToUser(userDto);
+   public ResponseEntity<?>sentOTP(String username){
+         Optional<otp_verification>otp=otprepo.findByUsername(username);
+         if(otp.isPresent()){
+             String cu=otp.get().getUsername();
+             if(cu.equals(username)){
+                 otpRepo.delete(otp.get());
+             }
+         }
+
+       String opt=optgen.generateOPT(username);
+       Optional<User>user=userRepo.findByUsername(username);
+       User u=user.get();
        boolean ansMail=mailsender.mailsendforOTP(u,opt);
          if(ansMail){
               return new ResponseEntity<>("OTP sent to your email",HttpStatus.OK);
@@ -70,6 +82,19 @@ public class UserserviceImp implements userService {
          }
 
    }
+//   public ResponseEntity<?>sentOTP(UserDto userDto){
+//       String opt=optgen.generateOPT(userDto);
+//       User u=dtoToUser(userDto);
+//       boolean ansMail=mailsender.mailsendforOTP(u,opt);
+//         if(ansMail){
+//              return new ResponseEntity<>("OTP sent to your email",HttpStatus.OK);
+//         }
+//         else {
+//                userRepo.delete(u);
+//              return new ResponseEntity<>("Error in sending OTP",HttpStatus.BAD_REQUEST);
+//         }
+//
+//   }
     public ResponseEntity<?> validateOTP(validOTPObj in_otp) {
         Optional<User> user=userRepo.findByEmailAndIsVerifiedFalse(in_otp.getEmail());
         if(user.isEmpty()){
@@ -175,8 +200,8 @@ public class UserserviceImp implements userService {
         }
         return new ResponseEntity<>("No Users Found",HttpStatus.NOT_FOUND);
     }
-    public ResponseEntity<?> cheackUser(UserDto userDto) {
-        Optional<User> us = userRepo.findByUsername(userDto.getusername());
+    public ResponseEntity<?> cheackUser(veriAcc userDto) {
+        Optional<User> us = userRepo.findByUsername(userDto.getUsername());
         if (us.isEmpty()) {
             return new ResponseEntity<>("user not found", HttpStatus.BAD_REQUEST);
         }

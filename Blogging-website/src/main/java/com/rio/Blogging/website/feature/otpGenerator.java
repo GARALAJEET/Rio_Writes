@@ -16,11 +16,11 @@ public class otpGenerator {
     private otpRepo otpRepo;
 
    private SecureRandom secureRandom = new SecureRandom();
-   public String generateOPT(UserDto userDto){
+   public String generateOPT(String username){
         Long otpnum=secureRandom.nextLong(1000000);
         String otp=String.format("%06d",otpnum);
         otp_verification otpVerification=new otp_verification();
-        otpVerification.setUsername(userDto.getusername());
+        otpVerification.setUsername(username);
         otpVerification.setOtp(otp);
         otpVerification.setCreatedAt(LocalDateTime.now());
         otpVerification.setExpireAt(LocalDateTime.now().plusMinutes(5));

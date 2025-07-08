@@ -2,6 +2,7 @@ package com.rio.Blogging.website.Controller;
 
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.ReqObj.validOTPObj;
+import com.rio.Blogging.website.ReqObj.veriAcc;
 import com.rio.Blogging.website.ServiceImp.UserserviceImp;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,19 @@ public class UserContoller {
     @PostMapping("/newUser")
     public ResponseEntity<?> createUser( @Valid  @RequestBody UserDto userDto){
         ResponseEntity<?> ans= userserviceImp.createNewUser(userDto);
+        System.out.println(ans);
         if(ans.getStatusCode().is2xxSuccessful()){
-            return userserviceImp.sentOTP(userDto);
+            System.out.println(ans);
+            return userserviceImp.sentOTP(userDto.getusername());
         }
         return new ResponseEntity<>("User not created", org.springframework.http.HttpStatus.BAD_REQUEST);
     }
     @PostMapping("/verifyAcc")
-    public ResponseEntity<?> verifyAcc(@Valid @RequestBody UserDto userDto){
-        ResponseEntity<?>ans=userserviceImp.cheackUser(userDto);
+    public ResponseEntity<?> verifyAcc( @RequestBody veriAcc veriAcc){
+        ResponseEntity<?>ans=userserviceImp.cheackUser(veriAcc);
+        System.out.println(ans);
         if(ans.getStatusCode().is2xxSuccessful()){
-            return userserviceImp.sentOTP(userDto);
+            return userserviceImp.sentOTP(veriAcc.getUsername());
         }
         return new ResponseEntity<>("acc not  verfiy", HttpStatus.BAD_REQUEST);
     }

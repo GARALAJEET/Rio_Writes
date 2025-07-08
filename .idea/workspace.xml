@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments">
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/myUserDetailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/userDetailImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ReqObj/veriAcc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/exception/Exceptionheading.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/exception/Exceptionheading.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,19 +53,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BloggingWebsiteApplication.executor": "Coverage",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHELLCHECK.PATH": "C:\\Users\\ASUS\\AppData\\Roaming\\JetBrains\\IdeaIC2025.1\\plugins\\Shell Script\\shellcheck.exe",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Project/Blogging web App",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BloggingWebsiteApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\ASUS\\AppData\\Roaming\\JetBrains\\IdeaIC2025.1\\plugins\\Shell Script\\shellcheck.exe&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Project/Blogging web App&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="BloggingWebsiteApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.rio.Blogging.website.BloggingWebsiteApplication" />
