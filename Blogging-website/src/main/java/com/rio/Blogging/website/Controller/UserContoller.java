@@ -5,6 +5,7 @@ import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ServiceImp.UserserviceImp;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +31,14 @@ public class UserContoller {
             return userserviceImp.sentOTP(userDto);
         }
         return new ResponseEntity<>("User not created", org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
+    @PostMapping("/verifyAcc")
+    public ResponseEntity<?> verifyAcc(@Valid @RequestBody UserDto userDto){
+        ResponseEntity<?>ans=userserviceImp.cheackUser(userDto);
+        if(ans.getStatusCode().is2xxSuccessful()){
+            return userserviceImp.sentOTP(userDto);
+        }
+        return new ResponseEntity<>("acc not  verfiy", HttpStatus.BAD_REQUEST);
     }
     @PostMapping("/verifyOTP")
     public ResponseEntity<?> verifyOTP(@RequestBody validOTPObj valid ){

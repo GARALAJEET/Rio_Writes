@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class UserserviceImp implements userService {
     private emailSender mailsender;
     @Autowired
     private otpGenerator optgen;
+    private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
     @Override
     public ResponseEntity<?> createNewUser(UserDto user) {
         User cur_user = dtoToUser(user);
@@ -51,7 +53,7 @@ public class UserserviceImp implements userService {
         if (s2.isPresent()) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
-
+        cur_user.setPassword(encoder.encode(cur_user.getPassword()));
         userRepo.save(cur_user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -121,18 +123,31 @@ public class UserserviceImp implements userService {
 
         if (userOpt.isPresent()) {
             User existingUser = userOpt.get();
-            existingUser.setUsername(userdto.getusername());
-            existingUser.setEmail(userdto.getEmail());
-            existingUser.setAbout(userdto.getAbout());
-            existingUser.setPassword(userdto.getPassword());
 
-            User updatedUser = userRepo.save(existingUser);
+            if (userdto.getusername() != null) {
+                existingUser.setUsername(userdto.getusername());
+            }
 
-            return new ResponseEntity<>("User Updated", HttpStatus.OK);
+            if (userdto.getEmail() != null) {
+                existingUser.setEmail(userdto.getEmail());
+                existingUser.setIsvarified(false);
+            }
+
+            if (userdto.getAbout() != null) {
+                existingUser.setAbout(userdto.getAbout());
+            }
+
+            if (userdto.getPassword() != null) {
+                String hashedPassword = encoder.encode(userdto.getPassword());
+                existingUser.setPassword(hashedPassword);
+            }
+            userRepo.save(existingUser);
+
+            return ResponseEntity.ok("User updated");
         }
-
-        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
+
 
 
 
@@ -160,6 +175,25 @@ public class UserserviceImp implements userService {
         }
         return new ResponseEntity<>("No Users Found",HttpStatus.NOT_FOUND);
     }
+    public ResponseEntity<?> cheackUser(UserDto userDto) {
+        Optional<User> us = userRepo.findByUsername(userDto.getusername());
+        if (us.isEmpty()) {
+            return new ResponseEntity<>("user not found", HttpStatus.BAD_REQUEST);
+        }
+
+        User user = us.get();
+
+        if (!user.getEmail().equals(userDto.getEmail())) {
+            return new ResponseEntity<>("email does not match", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!encoder.matches(userDto.getPassword(), user.getPassword())) {
+            return new ResponseEntity<>("password does not match", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("user is found", HttpStatus.OK);
+    }
+
     public User dtoToUser(UserDto userDto){
         User user=modelMapper.map(userDto,User.class);
         return user;
@@ -169,4 +203,5 @@ public class UserserviceImp implements userService {
         UserDto userDto=modelMapper.map(user,UserDto.class);
         return userDto;
     }
+
 }
