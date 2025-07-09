@@ -67,6 +67,7 @@ public class UserserviceImp implements userService {
              if(cu.equals(username)){
                  otpRepo.delete(otp.get());
              }
+
          }
 
        String opt=optgen.generateOPT(username);
