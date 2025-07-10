@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Refactor exception handling and OTP generation; update user verification process">
+    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Refactor OTP deletion logic in user service implementation">
+      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/backgroudScheduled/optCleanup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/BloggingWebsiteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/BloggingWebsiteApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/otpRepo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751997763718</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Refactor OTP deletion logic in user service implementation">
+      <option name="closed" value="true" />
+      <created>1752036269484</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1752036269484</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,7 +203,8 @@
     <MESSAGE value="Implement user authentication and account verification features" />
     <MESSAGE value="Add Comment functionality with CommentController and CommentService, update Post and User models to support comments" />
     <MESSAGE value="Refactor exception handling and OTP generation; update user verification process" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor exception handling and OTP generation; update user verification process" />
+    <MESSAGE value="Refactor OTP deletion logic in user service implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor OTP deletion logic in user service implementation" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Rio_Writes$BloggingWebsiteApplication.ic" NAME="BloggingWebsiteApplication Coverage Results" MODIFIED="1751865207491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
