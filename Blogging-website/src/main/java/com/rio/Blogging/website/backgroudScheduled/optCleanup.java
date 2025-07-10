@@ -1,5 +1,6 @@
 package com.rio.Blogging.website.backgroudScheduled;
 
+import com.rio.Blogging.website.Modal.otp_verification;
 import com.rio.Blogging.website.repo.otpRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,10 +15,11 @@ public class optCleanup {
     public optCleanup(otpRepo otpRepo){
         this.otpRepo=otpRepo;
     }
-    @Scheduled(fixedRate = 600*1000)
+    @Scheduled(fixedRate = 60 * 60 * 1000)
     @Transactional
-    public void clearOtp(){
-        Optional<Integer>otp=otpRepo.deleteAllByExpireAtBefore(LocalDateTime.now());
-        System.out.println("otp number of delete"+otp.get()+LocalDateTime.now());
+    public void clearOtp() {
+       Optional<Long> count = otpRepo.deleteAllByExpireAtBefore(LocalDateTime.now());
+        System.out.println("Deleted OTPs: " + count + " at " + LocalDateTime.now());
     }
+
 }
