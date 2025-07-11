@@ -14,12 +14,12 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/api/user")
 public class UserContoller {
-    @Autowired
+
     UserserviceImp userserviceImp = new UserserviceImp();
-//    private  final RestTemplate restTemplate;
-//    public UserContoller(RestTemplate restTemplate) {
-//        this.restTemplate = restTemplate;
-//    }
+    @Autowired
+    public UserContoller(UserserviceImp userserviceImp) {
+        this.userserviceImp = userserviceImp;
+    }
 
     @GetMapping("/Home")
     public String hello(){

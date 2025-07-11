@@ -12,8 +12,12 @@ import java.util.Optional;
 
 @Service
 public class otpGenerator {
-   @Autowired
+
     private otpRepo otpRepo;
+    @Autowired
+   public otpGenerator(otpRepo otpRepo){
+       this.otpRepo=otpRepo;
+   }
 
    private SecureRandom secureRandom = new SecureRandom();
    public String generateOPT(String username){

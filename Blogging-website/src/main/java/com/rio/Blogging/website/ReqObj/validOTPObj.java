@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class validOTPObj {
+
+    String email;
+    String otp;
     public String getEmail() {
         return email;
     }
@@ -24,6 +27,4 @@ public class validOTPObj {
         this.otp = otp;
     }
 
-    String email;
-    String otp;
 }

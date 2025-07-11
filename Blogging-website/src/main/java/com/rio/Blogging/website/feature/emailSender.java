@@ -14,8 +14,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 
 public class emailSender {
-    @Autowired
+
     private JavaMailSender javaMailSender;
+    @Autowired
+    public emailSender(JavaMailSender javaMailSender){
+        this.javaMailSender=javaMailSender;
+    }
 
     public boolean mailsendforOTP(User cur_user,String otp) {
 

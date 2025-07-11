@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
-    @Autowired
+
     private CategorySeriveImp categorySeriveImp;
+    @Autowired
+    public CategoryController(CategorySeriveImp categorySeriveImp){
+        this.categorySeriveImp=categorySeriveImp;
+    }
     @PostMapping("/createCategory")
     public ResponseEntity<?>createCategory( @Valid  @RequestBody CategoryDto categoryDto){
         return categorySeriveImp.createCategory(categoryDto);

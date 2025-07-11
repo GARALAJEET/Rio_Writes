@@ -60,6 +60,7 @@ public class UserserviceImp implements userService {
         userRepo.save(cur_user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    @Override
    public ResponseEntity<?>sentOTP(String username){
          Optional<otp_verification>otp=otprepo.findByUsername(username);
          if(otp.isPresent()){
@@ -83,19 +84,7 @@ public class UserserviceImp implements userService {
          }
 
    }
-//   public ResponseEntity<?>sentOTP(UserDto userDto){
-//       String opt=optgen.generateOPT(userDto);
-//       User u=dtoToUser(userDto);
-//       boolean ansMail=mailsender.mailsendforOTP(u,opt);
-//         if(ansMail){
-//              return new ResponseEntity<>("OTP sent to your email",HttpStatus.OK);
-//         }
-//         else {
-//                userRepo.delete(u);
-//              return new ResponseEntity<>("Error in sending OTP",HttpStatus.BAD_REQUEST);
-//         }
-//
-//   }
+   @Override
     public ResponseEntity<?> validateOTP(validOTPObj in_otp) {
         Optional<User> user=userRepo.findByEmailAndIsVerifiedFalse(in_otp.getEmail());
         if(user.isEmpty()){
@@ -201,6 +190,7 @@ public class UserserviceImp implements userService {
         }
         return new ResponseEntity<>("No Users Found",HttpStatus.NOT_FOUND);
     }
+    @Override
     public ResponseEntity<?> cheackUser(veriAcc userDto) {
         Optional<User> us = userRepo.findByUsername(userDto.getUsername());
         if (us.isEmpty()) {

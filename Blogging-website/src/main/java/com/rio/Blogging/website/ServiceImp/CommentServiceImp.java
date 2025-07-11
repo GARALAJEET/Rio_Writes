@@ -35,6 +35,7 @@ public  class CommentServiceImp implements CommentService {
     private CommetRepo commetRepo;
     @Autowired
     private ModelMapper modalMapper;
+    @Override
     public ResponseEntity<?> AddComment(Long userId,Long postId, CommentDto commentDto) {
         Optional<User>user=userRepo.findById(Math.toIntExact(userId));
         Optional<Post>posts=postRepo.findById((postId));

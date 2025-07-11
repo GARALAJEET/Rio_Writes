@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
-    @Autowired
+
     private CommentServiceImp commentServiceImp;
+    @Autowired
+    public CommentController(CommentServiceImp commentServiceImp){
+        this.commentServiceImp=commentServiceImp;
+    }
     @PostMapping("/addComment/{userId}/{PostId}")
     public ResponseEntity<?>addCommnets(@PathVariable("userId") Long userId,
                                          @PathVariable("PostId") Long PostId,

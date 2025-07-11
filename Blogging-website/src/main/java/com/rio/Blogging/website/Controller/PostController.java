@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-    @Autowired
+
     private PostSericeImp postService;
+    @Autowired
+    public PostController(PostSericeImp postService){
+        this.postService=postService;
+    }
     @PostMapping("/create/{userId}/{categoryId}")
     public ResponseEntity<?> createNewPost(@RequestBody PostDto postDto, @PathVariable Long userId, @PathVariable Long categoryId) {
         return postService.createPost(postDto, userId, categoryId);
