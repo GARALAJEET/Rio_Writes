@@ -54,7 +54,8 @@ public class JWTService {
                 .claims(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 60 * 1000)) // 1 minute expiration
+                .expiration(new Date(System.currentTimeMillis() + 120 * 1000)) // 1 minute expiration
+
                 .signWith(getKey()) // The .and() method is deprecated
                 .compact();
     }

@@ -1,6 +1,7 @@
 package com.rio.Blogging.website.ServiceImp;
 
 import com.rio.Blogging.website.DTO.UserDto;
+import com.rio.Blogging.website.Modal.LoginLogs;
 import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.Modal.otp_verification;
 //import com.rio.Blogging.website.ReqObj.validOTP;
@@ -9,6 +10,7 @@ import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ReqObj.veriAcc;
 import com.rio.Blogging.website.feature.emailSender;
 import com.rio.Blogging.website.feature.otpGenerator;
+import com.rio.Blogging.website.repo.LoginLogsRepo;
 import com.rio.Blogging.website.repo.otpRepo;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.resMsg.validOtp;
@@ -27,7 +29,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -53,6 +57,8 @@ public class UserserviceImp implements userService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JWTService jwtService;
+    @Autowired
+    private LoginLogsRepo loginLogsRepo;
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
     @Override
@@ -248,6 +254,14 @@ public class UserserviceImp implements userService {
         Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(reqUser.getUsername(),reqUser.getPassword()));
         if (authentication.isAuthenticated()) {
             String token= jwtService.generateToken(reqUser.getUsername());
+            // Save login logs if needed
+            LoginLogs log=new LoginLogs();
+            log.setUsername(reqUser.getUsername());
+            log.setLoginTime(LocalDateTime.now());
+             LoginLogs l=loginLogsRepo.save(log);
+             if(l==null){
+                 return new ResponseEntity<>("Error in saving login logs",HttpStatus.INTERNAL_SERVER_ERROR);
+             }
             return new ResponseEntity<>(token,HttpStatus.OK);
         }
         return new ResponseEntity<>("fail",HttpStatus.BAD_REQUEST);
