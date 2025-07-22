@@ -4,6 +4,7 @@ import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.Modal.otp_verification;
 //import com.rio.Blogging.website.ReqObj.validOTP;
+import com.rio.Blogging.website.ReqObj.loginReq;
 import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ReqObj.veriAcc;
 import com.rio.Blogging.website.feature.emailSender;
@@ -11,6 +12,7 @@ import com.rio.Blogging.website.feature.otpGenerator;
 import com.rio.Blogging.website.repo.otpRepo;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.resMsg.validOtp;
+import com.rio.Blogging.website.security.JWTService;
 import com.rio.Blogging.website.service.userService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +49,12 @@ public class UserserviceImp implements userService {
     private otpRepo otprepo;
     @Autowired
     private otpGenerator optgen;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JWTService jwtService;
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
     @Override
     public ResponseEntity<?> createNewUser(UserDto user) {
         User cur_user = dtoToUser(user);
@@ -220,4 +230,13 @@ public class UserserviceImp implements userService {
         return userDto;
     }
 
+    public ResponseEntity<?> verifyUser(loginReq reqUser) {
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(reqUser.getUsername(),reqUser.getPassword()));
+        if (authentication.isAuthenticated()) {
+            String token= jwtService.generateToken(reqUser.getUsername());
+            return new ResponseEntity<>(token,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("fail",HttpStatus.BAD_REQUEST);
+
+    }
 }

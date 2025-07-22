@@ -1,6 +1,7 @@
 package com.rio.Blogging.website.Controller;
 
 import com.rio.Blogging.website.DTO.UserDto;
+import com.rio.Blogging.website.ReqObj.loginReq;
 import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ReqObj.veriAcc;
 import com.rio.Blogging.website.ServiceImp.UserserviceImp;
@@ -66,6 +67,10 @@ public class UserContoller {
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         return userserviceImp.deleteUser(id);
+    }
+    @PostMapping("/loginUser")
+    public ResponseEntity<?>loginUser( @Valid @RequestBody loginReq reqUser){
+        return userserviceImp.verifyUser(reqUser);
     }
 
 }
