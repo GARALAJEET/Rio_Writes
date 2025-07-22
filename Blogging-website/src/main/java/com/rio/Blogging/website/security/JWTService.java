@@ -1,6 +1,7 @@
 package com.rio.Blogging.website.security;
 
 
+import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.ServiceImp.UserserviceImp;
 import com.rio.Blogging.website.service.userService;
@@ -45,9 +46,9 @@ public class JWTService {
         Map<String, Object> claims = new HashMap<>();
         // Retrieve user details from the userService
 
-        User user= (User) userService.getUserByUsername(username).getBody();
+        UserDto user=  (UserDto) userService.getUserByUsername(username).getBody();
         claims.put("userDetails", user);
-        System.out.println(user);
+//        System.out.println(user);
 
         return Jwts.builder()
                 .claims(claims)

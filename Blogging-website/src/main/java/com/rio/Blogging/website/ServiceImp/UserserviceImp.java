@@ -99,8 +99,8 @@ public class UserserviceImp implements userService {
     public ResponseEntity<?> getUserByUsername(String username) {
         Optional<User>user=userRepo.findByUsername(username);
         if(user.isPresent()){
-//            UserDto userDto=userToUserDto(user.get());
-            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+            UserDto userDto=userToUserDto(user.get());
+            return new ResponseEntity<> (userDto,HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);

@@ -18,17 +18,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class securityConfig {
     private myUserDetailService myUserDetailService;
-    @Autowired
     private JwtFilter jwtFilter;
+    private JwtAuthEntryPoint unauthorizedHandler;
     @Autowired
-    public securityConfig(myUserDetailService myUserDetailService){
+    public securityConfig(myUserDetailService myUserDetailService,JwtFilter jwtFilter,JwtAuthEntryPoint unauthorizedHandler){
         this.myUserDetailService=myUserDetailService;
+        this.jwtFilter=jwtFilter;
+        this.unauthorizedHandler=unauthorizedHandler;
 
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(customizer ->customizer.disable())
+        return http
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(unauthorizedHandler)
+                )
+                .csrf(customizer ->customizer.disable())
                 .authorizeHttpRequests(request ->request
                         .requestMatchers("/api/user/newUser").permitAll()
                         .requestMatchers("api/user/verifyOTP").permitAll()
