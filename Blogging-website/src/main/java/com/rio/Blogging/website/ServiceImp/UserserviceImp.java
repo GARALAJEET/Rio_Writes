@@ -94,7 +94,21 @@ public class UserserviceImp implements userService {
          }
 
    }
-   @Override
+
+    @Override
+    public ResponseEntity<?> getUserByUsername(String username) {
+        Optional<User>user=userRepo.findByUsername(username);
+        if(user.isPresent()){
+//            UserDto userDto=userToUserDto(user.get());
+            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @Override
     public ResponseEntity<?> validateOTP(validOTPObj in_otp) {
         Optional<User> user=userRepo.findByEmailAndIsVerifiedFalse(in_otp.getEmail());
         if(user.isEmpty()){

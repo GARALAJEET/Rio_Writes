@@ -1,6 +1,7 @@
 package com.rio.Blogging.website.service;
 
 import com.rio.Blogging.website.DTO.UserDto;
+import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.ReqObj.validOTPObj;
 import com.rio.Blogging.website.ReqObj.veriAcc;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +24,6 @@ public interface userService {
     public ResponseEntity<?> validateOTP(validOTPObj in_otp);
 
     public ResponseEntity<?> sentOTP(String username);
+
+    public ResponseEntity<?>getUserByUsername(String username);
 }

@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Implement JWT authentication and login functionality; add login request object and update security configuration">
-      <change afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JwtFilter.java" afterDir="false" />
+    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Add JWT filter and service for authentication; update security configuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JWTService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JWTService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753144435275</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add JWT filter and service for authentication; update security configuration">
+      <option name="closed" value="true" />
+      <created>1753187927260</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1753187927260</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -231,7 +240,8 @@
     <MESSAGE value="Add scheduled OTP cleanup service and update repository for expiration handling" />
     <MESSAGE value="Update OTP cleanup service to improve expiration handling and adjust database connection properties" />
     <MESSAGE value="Implement JWT authentication and login functionality; add login request object and update security configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement JWT authentication and login functionality; add login request object and update security configuration" />
+    <MESSAGE value="Add JWT filter and service for authentication; update security configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add JWT filter and service for authentication; update security configuration" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Rio_Writes$BloggingWebsiteApplication.ic" NAME="BloggingWebsiteApplication Coverage Results" MODIFIED="1751865207491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

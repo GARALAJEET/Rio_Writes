@@ -31,7 +31,7 @@ public class User {
     @Column( columnDefinition = "TINYINT(1) DEFAULT 0")
     private  boolean isvarified;
 
-    public boolean getIsIsvarified() {
+    public boolean getIsvarified() {
         return isvarified;
     }
 

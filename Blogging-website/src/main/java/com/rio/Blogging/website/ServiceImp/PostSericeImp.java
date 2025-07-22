@@ -46,7 +46,7 @@ public class PostSericeImp implements postService {
         if (user.isEmpty()) {
             return new ResponseEntity<>("User not Found", HttpStatus.NOT_FOUND);
         }
-        boolean ans=user.get().getIsIsvarified();
+        boolean ans=user.get().getIsvarified();
         if(!ans){
             return new ResponseEntity<>("first varify your account",HttpStatus.NOT_FOUND);
         }
