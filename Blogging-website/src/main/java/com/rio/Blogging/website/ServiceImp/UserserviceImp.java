@@ -90,7 +90,7 @@ public class UserserviceImp implements userService {
        String opt=optgen.generateOPT(username);
        Optional<User>user=userRepo.findByUsername(username);
        User u=user.get();
-       boolean ansMail=mailsender.mailsendforOTP(u,opt);
+       boolean ansMail=mailsender.mailSendForOTP(u,opt);
          if(ansMail){
               return new ResponseEntity<>("OTP sent to your email",HttpStatus.OK);
          }
@@ -137,7 +137,7 @@ public class UserserviceImp implements userService {
             validOtp msg=new validOtp();
             msg.setMsg("User Created");
             msg.setUser(ud);
-            CompletableFuture<?> ans1=mailsender.wellcomeEmail(cur_user1);
+            CompletableFuture<?> ans1=mailsender.sendWelcomeEmail(cur_user1);
             if(ans1.isCompletedExceptionally()){
                 return new ResponseEntity<>("Error in sending email",HttpStatus.BAD_REQUEST);
             }
