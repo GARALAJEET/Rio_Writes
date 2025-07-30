@@ -26,4 +26,6 @@ public interface userService {
     public ResponseEntity<?> sentOTP(String username);
 
     public ResponseEntity<?>getUserByUsername(String username);
+
+    public ResponseEntity<?>loginDetails(String Username);
 }

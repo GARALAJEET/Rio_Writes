@@ -10,6 +10,7 @@ import com.rio.Blogging.website.repo.postRepo;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.resMsg.validOtp;
 import com.rio.Blogging.website.service.postService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,15 +27,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PostSericeImp implements postService {
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private userRepo userRepo;
-    @Autowired
-    private postRepo postRepo;
-    @Autowired
-    private categoryRepo c;
+
+    private final ModelMapper modelMapper;
+    private final userRepo userRepo;
+    private final postRepo postRepo;
+    private final categoryRepo c;
     @Override
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
         Post post = DtoToPost(postDto);

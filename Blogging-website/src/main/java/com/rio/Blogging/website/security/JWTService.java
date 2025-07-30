@@ -7,7 +7,6 @@ import com.rio.Blogging.website.ServiceImp.UserserviceImp;
 import com.rio.Blogging.website.service.userService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,10 +26,14 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+//@RequiredArgsConstructor
 public class JWTService {
+
+    private   userService userService;
     @Autowired
-    @Lazy
-    private userService userService;
+    public JWTService(@Lazy userService userService) {
+        this.userService = userService;
+    }
 
 
 
@@ -54,9 +57,8 @@ public class JWTService {
                 .claims(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 120 * 1000)) // 1 minute expiration
-
-                .signWith(getKey()) // The .and() method is deprecated
+                .expiration(new Date(System.currentTimeMillis() + 300 * 1000))
+                .signWith(getKey())
                 .compact();
     }
 

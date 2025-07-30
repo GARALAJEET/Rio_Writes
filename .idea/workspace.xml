@@ -4,10 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Enhance email functionality; implement HTML templates for OTP and welcome emails, and refactor email sending methods">
+    <list default="true" id="3b7a3927-d46b-440c-b831-80fef3aa96b9" name="Changes" comment="Enhance email functionality; update welcome email template and refactor email sending method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/Controller/UserContoller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/CategorySeriveImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/CategorySeriveImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/CommentServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/CommentServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/PostSericeImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/PostSericeImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/ServiceImp/UserserviceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/emailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/emailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/resources/welcome-email.html" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/resources/welcome-email.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/feature/otpGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/LoginLogsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/repo/LoginLogsRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JWTService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JWTService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/myUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/myUserDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/security/securityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/postService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/postService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Blogging-website/src/main/java/com/rio/Blogging/website/service/userService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,25 +63,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BloggingWebsiteApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SHELLCHECK.PATH": "C:\\Users\\ASUS\\AppData\\Roaming\\JetBrains\\IdeaIC2025.1\\plugins\\Shell Script\\shellcheck.exe",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Project/Blogging web App",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BloggingWebsiteApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\ASUS\\AppData\\Roaming\\JetBrains\\IdeaIC2025.1\\plugins\\Shell Script\\shellcheck.exe&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Project/Blogging web App&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="BloggingWebsiteApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.rio.Blogging.website.BloggingWebsiteApplication" />
@@ -251,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753539346179</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Enhance email functionality; update welcome email template and refactor email sending method">
+      <option name="closed" value="true" />
+      <created>1753894504031</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1753894504031</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -272,7 +295,8 @@
     <MESSAGE value="Add JWT secret key configuration and enhance user retrieval in JWT service" />
     <MESSAGE value="Add JWT authentication entry point and handle unauthorized access; update user retrieval in service" />
     <MESSAGE value="Enhance email functionality; implement HTML templates for OTP and welcome emails, and refactor email sending methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhance email functionality; implement HTML templates for OTP and welcome emails, and refactor email sending methods" />
+    <MESSAGE value="Enhance email functionality; update welcome email template and refactor email sending method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhance email functionality; update welcome email template and refactor email sending method" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Rio_Writes$BloggingWebsiteApplication.ic" NAME="BloggingWebsiteApplication Coverage Results" MODIFIED="1751865207491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

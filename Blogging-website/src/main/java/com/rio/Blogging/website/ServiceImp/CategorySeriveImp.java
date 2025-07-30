@@ -4,6 +4,8 @@ import com.rio.Blogging.website.DTO.CategoryDto;
 import com.rio.Blogging.website.Modal.Category;
 import com.rio.Blogging.website.repo.categoryRepo;
 import com.rio.Blogging.website.service.categoryService;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Data
 @Service
+@RequiredArgsConstructor
 public class CategorySeriveImp  implements categoryService {
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private categoryRepo categoryRepo;
+    private final ModelMapper modelMapper;
+    private final categoryRepo categoryRepo;
     @Override
     public ResponseEntity<?> createCategory(CategoryDto categoryDto) {
         Category category=dtoToCategory(categoryDto);

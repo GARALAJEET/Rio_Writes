@@ -1,8 +1,10 @@
 package com.rio.Blogging.website.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,17 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class securityConfig {
-    private myUserDetailService myUserDetailService;
-    private JwtFilter jwtFilter;
-    private JwtAuthEntryPoint unauthorizedHandler;
-    @Autowired
-    public securityConfig(myUserDetailService myUserDetailService,JwtFilter jwtFilter,JwtAuthEntryPoint unauthorizedHandler){
-        this.myUserDetailService=myUserDetailService;
-        this.jwtFilter=jwtFilter;
-        this.unauthorizedHandler=unauthorizedHandler;
+    @Lazy
+    private final myUserDetailService myUserDetailService;
+    private final JwtFilter jwtFilter;
+    private  final JwtAuthEntryPoint unauthorizedHandler;
 
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

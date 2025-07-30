@@ -10,6 +10,7 @@ import com.rio.Blogging.website.repo.postRepo;
 import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.service.CommentService;
 import com.rio.Blogging.website.service.postService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,15 +27,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public  class CommentServiceImp implements CommentService {
-    @Autowired
-    private postRepo postRepo;
-    @Autowired
-    private userRepo userRepo;
-    @Autowired
-    private CommetRepo commetRepo;
-    @Autowired
-    private ModelMapper modalMapper;
+
+    private final postRepo postRepo;
+    private final userRepo userRepo;
+    private final CommetRepo commetRepo;
+    private  final ModelMapper modalMapper;
     @Override
     public ResponseEntity<?> AddComment(Long userId,Long postId, CommentDto commentDto) {
         Optional<User>user=userRepo.findById(Math.toIntExact(userId));

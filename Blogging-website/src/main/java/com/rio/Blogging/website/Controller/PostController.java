@@ -4,26 +4,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rio.Blogging.website.DTO.PostDto;
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.ServiceImp.PostSericeImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/posts")
+@RequiredArgsConstructor
 public class PostController {
 
-    private PostSericeImp postService;
-    @Autowired
-    public PostController(PostSericeImp postService){
-        this.postService=postService;
-    }
+    private final PostSericeImp postService;
+
     @PostMapping("/create/{userId}/{categoryId}")
-    public ResponseEntity<?> createNewPost(@RequestBody PostDto postDto, @PathVariable Long userId, @PathVariable Long categoryId) {
+    public ResponseEntity<?> createNewPost(
+            @RequestBody PostDto postDto,
+            @PathVariable("userId") Long userId,         // <-- FIX: Explicitly name the path variable
+            @PathVariable("categoryId") Long categoryId  // <-- FIX: Explicitly name the path variable
+    ) {
         return postService.createPost(postDto, userId, categoryId);
     }
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getPostById(@PathVariable Long id) {
-        System.out.println( postService.getPostBYID(id));
+    @GetMapping("/get/{PostId}")
+    public ResponseEntity<?> getPostById(@PathVariable("PostId") Long id) {
+//        System.out.println( postService.getPostBYID(id));
+        System.out.println(id);
         return postService.getPostBYID(id);
     }
     @GetMapping("/getAll")

@@ -3,6 +3,7 @@ package com.rio.Blogging.website.feature;
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.Modal.otp_verification;
 import com.rio.Blogging.website.repo.otpRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class otpGenerator {
 
-    private otpRepo otpRepo;
-    @Autowired
-   public otpGenerator(otpRepo otpRepo){
-       this.otpRepo=otpRepo;
-   }
+    private final otpRepo otpRepo;
+
 
    private SecureRandom secureRandom = new SecureRandom();
    public String generateOPT(String username){

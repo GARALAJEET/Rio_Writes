@@ -16,8 +16,10 @@ import com.rio.Blogging.website.repo.userRepo;
 import com.rio.Blogging.website.resMsg.validOtp;
 import com.rio.Blogging.website.security.JWTService;
 import com.rio.Blogging.website.service.userService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -38,27 +40,29 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Service
+@RequiredArgsConstructor
 public class UserserviceImp implements userService {
-    @Autowired
-    private userRepo userRepo;
-    @Autowired
-    private otpRepo otpRepo;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private JavaMailSender javaMailSender;
-    @Autowired
-    private emailSender mailsender;
-    @Autowired
-    private otpRepo otprepo;
-    @Autowired
-    private otpGenerator optgen;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JWTService jwtService;
-    @Autowired
-    private LoginLogsRepo loginLogsRepo;
+
+    private final userRepo userRepo;
+
+    private final otpRepo otpRepo;
+
+    private final  ModelMapper modelMapper;
+
+    private final JavaMailSender javaMailSender;
+
+    private final  emailSender mailsender;
+
+    private final  otpRepo otprepo;
+
+    private final otpGenerator optgen;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JWTService jwtService;
+
+    private final LoginLogsRepo loginLogsRepo;
+
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
     @Override
@@ -111,6 +115,16 @@ public class UserserviceImp implements userService {
         else {
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
+
+    }
+
+    @Override
+    public ResponseEntity<?> loginDetails(String Username) {
+        List<LoginLogs>cur_user=loginLogsRepo.findByUsername(Username);
+        if(cur_user.isEmpty()){
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(cur_user,HttpStatus.OK);
 
     }
 

@@ -2,6 +2,7 @@ package com.rio.Blogging.website.feature;
 
 import com.rio.Blogging.website.Modal.User;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -14,23 +15,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 @Service
-
+@RequiredArgsConstructor
 public class emailSender {
 
-private JavaMailSender javaMailSender;
+private final JavaMailSender javaMailSender;
     private static final Logger LOGGER = LoggerFactory.getLogger(emailSender.class);
 
-    public emailSender(JavaMailSender javaMailSender){
-        this.javaMailSender=javaMailSender;
-    }
+//    public emailSender(JavaMailSender javaMailSender){
+//        this.javaMailSender=javaMailSender;
+//    }
 
 
-    /**
-     * Sends a beautifully designed HTML email for OTP verification.
-     * @param cur_user The user to whom the email will be sent.
-     * @param otp The one-time password.
-     * @return true if the email was sent successfully, false otherwise.
-     */
     public boolean mailSendForOTP(User cur_user, String otp) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
