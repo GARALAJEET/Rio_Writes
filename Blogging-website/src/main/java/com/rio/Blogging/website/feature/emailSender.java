@@ -59,15 +59,14 @@ private JavaMailSender javaMailSender;
 @Async
 public CompletableFuture<Boolean> sendWelcomeEmail(User user) {
     try {
-        // ... (MimeMessage and MimeMessageHelper setup remains the same)
+
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-        // Step 1: Read the HTML template from the file
+
         String htmlContent = loadEmailTemplate("welcome-email.html");
 
-        // Step 2: Replace placeholders with user data
         htmlContent = htmlContent.replace("[USER_NAME]", user.getusername());
-        // Add other replacements if needed
+
 
         helper.setText(htmlContent, true);
         helper.setTo(user.getEmail());
@@ -82,19 +81,15 @@ public CompletableFuture<Boolean> sendWelcomeEmail(User user) {
     return CompletableFuture.completedFuture(false);
 }
 
-    /**
-     * Helper method to load an email template from the classpath.
-     * @param templatePath The path to the template file in src/main/resources.
-     * @return The template content as a String.
-     */
+
     private String loadEmailTemplate(String templatePath) {
         try {
             ClassPathResource resource = new ClassPathResource(templatePath);
-            // Read the file content into a string
+
             return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
         } catch (Exception e) {
             LOGGER.error("Error loading email template: {}", templatePath, e);
-            // Return a simple fallback text or throw an exception
+
             return "Welcome! We are happy to have you.";
         }
     }
