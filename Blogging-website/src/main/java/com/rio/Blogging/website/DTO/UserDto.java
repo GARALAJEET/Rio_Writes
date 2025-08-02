@@ -1,5 +1,6 @@
 package com.rio.Blogging.website.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class UserDto {
     @Email(message = "Email should be valid")
     private  String email;
     @Size(max = 14, min = 6,message = "Password should be between 6 to 14 characters")
+//    @JsonIgnore
     private String password;
     @NotEmpty(message = "About can't be empty")
     private String about;

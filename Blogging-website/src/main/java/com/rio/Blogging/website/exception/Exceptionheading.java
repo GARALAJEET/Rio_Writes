@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @RestControllerAdvice
 public class Exceptionheading {
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -26,5 +28,9 @@ public class Exceptionheading {
     @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
     public ResponseEntity<?> handleUnauthorizedException(HttpClientErrorException.Unauthorized e) {
         return new ResponseEntity<>("Unauthorized access: " + e.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<?> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        return new ResponseEntity<>( "Image already set" , HttpStatus.BAD_REQUEST);
     }
 }

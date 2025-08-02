@@ -21,7 +21,6 @@ public class Post {
     private Long postId;
     private String title;
     private String content;
-    private String imageUrl;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime addedDate;
     @ManyToOne
@@ -33,6 +32,42 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Comment>comments;
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Image images;
+
+    public Image getImages() {
+        return images;
+    }
+
+    public void setImages(Image images) {
+        this.images = images;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Long getPostId() {
         return postId;
     }
@@ -57,13 +92,6 @@ public class Post {
         this.content = content;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public LocalDateTime getAddedDate() {
         return addedDate;

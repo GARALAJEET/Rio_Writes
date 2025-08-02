@@ -24,7 +24,6 @@ public class PostDto {
     private String title;
     @NotNull(message = "Post content can't be null")
     private String content;
-    private String imageUrl;
     private  LocalDateTime addedDate;
     private User user;
     private Category category;
@@ -67,13 +66,6 @@ public class PostDto {
         this.content = content;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
 
 }

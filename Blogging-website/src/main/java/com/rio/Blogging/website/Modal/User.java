@@ -21,6 +21,7 @@ public class User {
     private Long id;
     private  String username;
     private  String email;
+//    @JsonIgnore
     private String password;
     private String about;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

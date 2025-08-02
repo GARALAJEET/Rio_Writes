@@ -2,6 +2,7 @@ package com.rio.Blogging.website.ServiceImp;
 
 import com.rio.Blogging.website.DTO.PostDto;
 import com.rio.Blogging.website.Modal.Category;
+import com.rio.Blogging.website.Modal.Image;
 import com.rio.Blogging.website.Modal.Post;
 import com.rio.Blogging.website.Modal.User;
 import com.rio.Blogging.website.Response.postResponse;
@@ -17,9 +18,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +37,9 @@ public class PostSericeImp implements postService {
     private final ModelMapper modelMapper;
     private final userRepo userRepo;
     private final postRepo postRepo;
+    private final com.rio.Blogging.website.repo.ImageRepository imageRepository;
     private final categoryRepo c;
+
     @Override
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
 
@@ -193,9 +199,6 @@ public class PostSericeImp implements postService {
             if(postDto.getContent() != null){
                 existingPost.setContent(postDto.getContent());
             }
-            if(postDto.getImageUrl() != null){
-                existingPost.setImageUrl(postDto.getImageUrl());
-            }
             existingPost.setAddedDate(LocalDateTime.now());
             Post updatedPost = postRepo.save(existingPost);
             if(updatedPost != null){
@@ -271,5 +274,37 @@ public class PostSericeImp implements postService {
         Post post=modelMapper.map(postDto,Post.class);
         return post;
     }
+    public ResponseEntity<?> uploadImage(MultipartFile file,Long postId) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Please select a file to upload.");
+        }
+        try {
+            Optional<Post> postOpt = postRepo.findById(postId);
+            if (postOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found with ID: " + postId);
+            }
+            Image image = new Image();
+            image.setPost(postOpt.get());
+            image.setData(file.getBytes());
+            imageRepository.save(image);
 
+            return ResponseEntity.ok("Image uploaded successfully with ID: " + image.getImageId());
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Could not upload the file: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> getImage(Long postId) {
+        Optional<Post> postOpt = postRepo.findById(postId);
+        if (postOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found with ID: " + postId);
+        }
+        List<Image> images = imageRepository.findByPost(postOpt.get());
+        if (images.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No images found for this post.");
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(images.get(0).getData()); // Assuming you want to return the first image
+    }
 }
