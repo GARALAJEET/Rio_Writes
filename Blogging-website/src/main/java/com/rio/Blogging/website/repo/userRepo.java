@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface userRepo extends JpaRepository<User,Integer> {
     Optional<User> findByEmail(String email);
-    Optional<User> findByUsername(String Username);
+//    Optional<User> findByUsername(String Username);
+@Query(value = "SELECT * FROM user WHERE BINARY username = :username", nativeQuery = true)
+    Optional<User> findByUsernameCaseSensitive(@Param("username") String username);
     @Query("SELECT u FROM User u WHERE u.email = :email AND u.isvarified = false")
     Optional<User>findByEmailAndIsVerifiedFalse(@Param("email") String email);
 }

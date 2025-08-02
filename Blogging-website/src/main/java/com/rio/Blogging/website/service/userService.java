@@ -28,4 +28,6 @@ public interface userService {
     public ResponseEntity<?>getUserByUsername(String username);
 
     public ResponseEntity<?>loginDetails(String Username);
+
+    public ResponseEntity<?>getId(String username);
 }

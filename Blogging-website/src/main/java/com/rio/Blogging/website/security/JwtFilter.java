@@ -19,19 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private   ApplicationContext context;
+    private final   ApplicationContext context;
 
-    private  JWTService jwtService;
-    @Autowired
-    public JwtFilter(@Lazy JWTService jwtService,ApplicationContext context){
-        this.jwtService = jwtService;
-        this.context = context;
-    }
-
-
+    private final JWTService jwtService;
 
 
 
@@ -45,6 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             username = jwtService.extractUserName(token);
+            jwtService.setToken(token);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

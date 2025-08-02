@@ -36,6 +36,7 @@ public class PostSericeImp implements postService {
     private final categoryRepo c;
     @Override
     public ResponseEntity<?> createPost(PostDto postDto, Long userId, Long categoryId) {
+
         Post post = DtoToPost(postDto);
         Optional<Category> category = c.findById(categoryId);
         if (category.isEmpty()) {
@@ -245,17 +246,22 @@ public class PostSericeImp implements postService {
     @Override
     public ResponseEntity<?> deletePostByUserId(Long userId){
         Optional<User> userOpt = userRepo.findById(Math.toIntExact(userId));
+//        System.out.println(userOpt);
      if(userOpt.isEmpty()){
          return new ResponseEntity<>("User not Found",HttpStatus.NOT_FOUND);
      }
      Long uID=userOpt.get().getId();
-     Optional<Post>posts=postRepo.findById(uID);
+        System.out.println(uID);
+        Optional<Post>posts= postRepo.findByUserId(uID);
+
         if(posts.isPresent()){
             postRepo.delete(posts.get());
             return new ResponseEntity<>("Post Deleted",HttpStatus.OK);
         }
         return new ResponseEntity<>("Post not Found",HttpStatus.NOT_FOUND);
     }
+
+
     public  PostDto postToDTo(Post post){
 
         PostDto postDto=modelMapper.map(post,PostDto.class);

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rio.Blogging.website.DTO.PostDto;
 import com.rio.Blogging.website.DTO.UserDto;
 import com.rio.Blogging.website.ServiceImp.PostSericeImp;
+import com.rio.Blogging.website.ServiceImp.UserserviceImp;
+import com.rio.Blogging.website.security.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,17 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostSericeImp postService;
+    private final UserserviceImp userserviceImp ;
+    private final JWTService jwtService;
 
-    @PostMapping("/create/{userId}/{categoryId}")
+    @PostMapping("/create/{categoryId}")
     public ResponseEntity<?> createNewPost(
             @RequestBody PostDto postDto,
-            @PathVariable("userId") Long userId,         // <-- FIX: Explicitly name the path variable
-            @PathVariable("categoryId") Long categoryId  // <-- FIX: Explicitly name the path variable
+            @PathVariable("categoryId") Long categoryId
     ) {
+        String token=jwtService.getToken();
+        String username=jwtService.extractUserName(token);
+        Long userId= (Long) userserviceImp.getId(username).getBody();
         return postService.createPost(postDto, userId, categoryId);
     }
     @GetMapping("/get/{PostId}")
@@ -37,21 +43,23 @@ public class PostController {
         return postService.getAllPosts(pageSize, pageNumber, sortBy);
     }
     @PutMapping("/updatePost/{id}")
-    public ResponseEntity<?> updatePost(@PathVariable Long id, @RequestBody PostDto postDto) {
+    public ResponseEntity<?> updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
         return postService.updatePost(id, postDto);
     }
     @DeleteMapping("/deletePost/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable Long id) {
+    public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         return postService.deletePost(id);
     }
-    @GetMapping("/getPostsByUser/{userId}")
-    public ResponseEntity<?> getPostsByUser(@PathVariable Long userId,
-                                            @RequestParam (value = "pageSize",defaultValue = "5",required = false) Long pageSize,
+    @GetMapping("/getPostsByUser")
+    public ResponseEntity<?> getPostsByUser(@RequestParam (value = "pageSize",defaultValue = "5",required = false) Long pageSize,
                                             @RequestParam (value = "pageNumber",defaultValue = "0",required = false) Long pageNumber){
+        String token=jwtService.getToken();
+        String username=jwtService.extractUserName(token);
+        Long userId= (Long) userserviceImp.getId(username).getBody();
         return postService.getPostsByUser(userId, pageSize, pageNumber);
     }
     @GetMapping("/getPostsByCategory/{categoryId}")
-    public ResponseEntity<?> getPostsByCategory(@PathVariable Long categoryId,
+    public ResponseEntity<?> getPostsByCategory(@PathVariable("categoryId") Long categoryId,
                                                 @RequestParam (value = "pageSize",defaultValue = "5",required = false) Long pageSize,
                                                 @RequestParam (value = "pageNumber",defaultValue = "0",required = false) Long pageNumber){
         return postService.getPostsByCategory(categoryId,pageSize,pageNumber);
@@ -61,15 +69,18 @@ public class PostController {
         return postService.DeleteAllPost();
     }
     @GetMapping("/getPostByTitle/{title}")
-    public ResponseEntity<?> getPostByTitle(@PathVariable String title) {
+    public ResponseEntity<?> getPostByTitle(@PathVariable("title") String title) {
         return postService.getPostByTitle(title);
     }
     @GetMapping("/getPostByKeyword/{keyword}")
-    public ResponseEntity<?> getPostByKeyword(@PathVariable String keyword) {
+    public ResponseEntity<?> getPostByKeyword(@PathVariable("keyword") String keyword) {
         return postService.getPostByKeyword(keyword);
     }
-    @DeleteMapping("/deletePostByUserId/{userId}")
-    public ResponseEntity<?> deletePostByUserId(@PathVariable Long userId) {
+    @DeleteMapping("/deletePostByUserId")
+    public ResponseEntity<?> deletePostByUserId() {
+        String token=jwtService.getToken();
+        String username=jwtService.extractUserName(token);
+        Long userId= (Long) userserviceImp.getId(username).getBody();
         return postService.deletePostByUserId(userId);
     }
 

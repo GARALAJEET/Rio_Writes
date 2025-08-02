@@ -2,6 +2,8 @@ package com.rio.Blogging.website.Controller;
 
 import com.rio.Blogging.website.DTO.CommentDto;
 import com.rio.Blogging.website.ServiceImp.CommentServiceImp;
+import com.rio.Blogging.website.ServiceImp.UserserviceImp;
+import com.rio.Blogging.website.security.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     private final CommentServiceImp commentServiceImp;
+    private final UserserviceImp userserviceImp ;
+    private final JWTService jwtService;
 
-    @PostMapping("/addComment/{userId}/{PostId}")
-    public ResponseEntity<?>addCommnets(@PathVariable("userId") Long userId,
-                                         @PathVariable("PostId") Long PostId,
-                                         @RequestBody CommentDto commentdto){
+
+    @PostMapping("/addComment/{PostId}")
+    public ResponseEntity<?>addCommnets(@PathVariable("PostId") Long PostId, @RequestBody CommentDto commentdto){
+        String token=jwtService.getToken();
+        String username=jwtService.extractUserName(token);
+        Long userId= (Long) userserviceImp.getId(username).getBody();
         return commentServiceImp.AddComment(userId, PostId, commentdto);
     }
     @GetMapping("/getAllComment/{PostId}")

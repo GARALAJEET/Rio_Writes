@@ -72,7 +72,7 @@ public class UserserviceImp implements userService {
         if (s1.isPresent()) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
         }
-        Optional<User> s2 = userRepo.findByUsername(user.getusername());
+        Optional<User> s2 = userRepo.findByUsernameCaseSensitive(user.getusername());
         if (s2.isPresent()) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
@@ -92,7 +92,7 @@ public class UserserviceImp implements userService {
          }
 
        String opt=optgen.generateOPT(username);
-       Optional<User>user=userRepo.findByUsername(username);
+       Optional<User>user=userRepo.findByUsernameCaseSensitive(username);
        User u=user.get();
        boolean ansMail=mailsender.mailSendForOTP(u,opt);
          if(ansMail){
@@ -107,7 +107,7 @@ public class UserserviceImp implements userService {
 
     @Override
     public ResponseEntity<?> getUserByUsername(String username) {
-        Optional<User>user=userRepo.findByUsername(username);
+        Optional<User>user=userRepo.findByUsernameCaseSensitive(username);
         if(user.isPresent()){
             UserDto userDto=userToUserDto(user.get());
             return new ResponseEntity<> (userDto,HttpStatus.OK);
@@ -126,6 +126,17 @@ public class UserserviceImp implements userService {
         }
         return new ResponseEntity<>(cur_user,HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<?> getId(String username) {
+        Optional<User> user = userRepo.findByUsernameCaseSensitive(username);
+        if (user.isPresent()) {
+            User cur_user = user.get();
+            Long id = Long.valueOf(cur_user.getId());
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -236,7 +247,7 @@ public class UserserviceImp implements userService {
     }
     @Override
     public ResponseEntity<?> cheackUser(veriAcc userDto) {
-        Optional<User> us = userRepo.findByUsername(userDto.getUsername());
+        Optional<User> us = userRepo.findByUsernameCaseSensitive(userDto.getUsername());
         if (us.isEmpty()) {
             return new ResponseEntity<>("user not found", HttpStatus.BAD_REQUEST);
         }
@@ -267,6 +278,7 @@ public class UserserviceImp implements userService {
     public ResponseEntity<?> verifyUser(loginReq reqUser) {
         Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(reqUser.getUsername(),reqUser.getPassword()));
         if (authentication.isAuthenticated()) {
+//
             String token= jwtService.generateToken(reqUser.getUsername());
             // Save login logs if needed
             LoginLogs log=new LoginLogs();

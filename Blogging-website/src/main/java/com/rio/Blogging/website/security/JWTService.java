@@ -37,17 +37,13 @@ public class JWTService {
 
 
 
-    // Inject the secret key from the application.properties file
     @Value("${jwt.secret}")
     private String secretKey;
 
-    /**
-     * Generates a JWT for the given username.
-     * The token is set to expire in 1 minute.
-     */
+
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        // Retrieve user details from the userService
+
 
         UserDto user=  (UserDto) userService.getUserByUsername(username).getBody();
         claims.put("userDetails", user);
@@ -57,14 +53,12 @@ public class JWTService {
                 .claims(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 300 * 1000))
+                .expiration(new Date(System.currentTimeMillis() + 60 * 30 * 1000))
                 .signWith(getKey())
                 .compact();
     }
 
-    /**
-     * Creates a SecretKey instance from the configured secret string.
-     */
+
     private SecretKey getKey() {
         // The secret key is converted to bytes using UTF-8 encoding
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
@@ -73,6 +67,7 @@ public class JWTService {
 
     public String extractUserName(String token) {
         // extract the username from jwt token
+
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -91,7 +86,7 @@ public class JWTService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (userName.equalsIgnoreCase(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
@@ -101,5 +96,11 @@ public class JWTService {
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
-
+    private String token;
+    public void setToken(String token) {
+        this.token=token;
+    }
+    public String getToken() {
+        return token;
+    }
 }
