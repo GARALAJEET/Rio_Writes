@@ -1,121 +1,115 @@
-Rio Write ✒️
-A modern, robust blogging platform for writers and readers.
+# ✒️ Rio Write - Blogging Platform
 
-📖 Overview
-Rio Write is a full-featured blogging platform built with Spring Boot, designed to provide a seamless and secure experience for creating, sharing, and discovering content. It offers a rich set of features for both writers and administrators, from a powerful text editor to comprehensive user management.
+A modern, robust blogging platform built with Spring Boot, designed to provide a seamless and secure experience for creating, sharing, and discovering content.
 
-✨ Key Features
-👤 User & Profile Management: Secure user registration, authentication (JWT-based), and detailed user profile management.
+---
 
-✍️ Post Management: A complete CRUD (Create, Read, Update, Delete) system for blog posts.
+## 📚 Overview
 
-💬 Comment System: A robust comment management system for engaging discussions on posts.
+> A single-page application designed with a sticky navigation bar and smooth-scroll UI. Built using **Vanilla JavaScript** and **Tailwind CSS**, this project showcases the static backend documentation in a clear and interactive way.
 
-🎨 Customizable Templates: Choose from a variety of templates to give your blog a unique look and feel.
+---
 
-📝 Rich Text Editing: An intuitive, powerful editor for effortlessly formatting your content.
+## 🔑 Key Features
 
-🔍 Powerful Search: Quickly find users, posts, or comments across the entire platform.
+> Everything you need in a modern blogging platform:
 
-🔒 Robust Security: Built with Spring Security to protect user data and secure API endpoints.
+| Feature | Description |
+|--------|-------------|
+| 👤 **User & Profile Management** | Secure user registration, JWT-based authentication, and profile management. |
+| ✍️ **Post Management** | Full CRUD support for blog posts. |
+| 💬 **Comment System** | Discussion-enabled comment management. |
+| 🎨 **Customizable Templates** | Various UI templates to customize blogs. |
+| 📝 **Rich Text Editor** | Easy formatting with a powerful editor. |
+| 🔍 **Search Functionality** | Quick search across users, posts, and comments. |
+| 🔒 **Security** | Spring Security with protected API endpoints. |
+| 🚀 **Scalability** | Optimized for high traffic and large user bases. |
 
-Scalable Architecture: Designed to handle high traffic and a large number of users efficiently.
+---
 
-🧰 Tech Stack & Tools
-Category
+## 🧰 Technology Stack
 
-Technology / Tool
+| Layer        | Tools & Frameworks               |
+|-------------|----------------------------------|
+| **Backend** | Spring Boot, Spring Security     |
+| **Database**| MySQL                            |
+| **Language**| Java 11+                         |
+| **Build Tool**| Maven                          |
+| **Server**   | Apache Tomcat                   |
 
-Backend
+---
 
-Spring Boot, Spring Security
+## ⚙️ Getting Started
 
-Database
+> Follow these steps to set up and run the project locally.
 
-MySQL (or your configured database)
+### ✅ Prerequisites
 
-Language
+- Java Development Kit (JDK) 11 or higher  
+- Apache Maven  
+- A Database (MySQL, PostgreSQL, or H2)  
+- IDE (IntelliJ, Eclipse, or similar)
 
-Java (Version 11+)
+---
 
-Build Tool
+### 🛠 Installation & Setup
 
-Apache Maven
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/GARALAJEET/Rio_Writes.git
+   cd rio-write
+   ```
 
-Server
+2. **Configure the database**
 
-Apache Tomcat (Embedded)
+   Update your `application.properties`:
+   ```
+   src/main/resources/application.properties
+   ```
 
-⚙️ Getting Started
-Follow these instructions to get the project up and running on your local machine.
+3. **Build the project**
+   ```bash
+   mvn clean install
+   ```
 
-Prerequisites
-Java Development Kit (JDK): Version 11 or higher.
+4. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
+   
 
-Apache Maven: To manage project dependencies and build.
-
-A Database Server: Such as MySQL, PostgreSQL, or H2.
-
-An IDE of your choice (e.g., IntelliJ IDEA, Eclipse).
-
-Installation & Setup
-Clone the repository:
-
-git clone https://github.com/GARALAJEET/Rio_Writes.git
-cd rio-write
-
-Configure the database:
-
-Open the src/main/resources/application.properties file.
-
-Update the spring.datasource.url, spring.datasource.username, and spring.datasource.password properties to match your local database setup.
-
-Build the project:
-
-Use Maven to compile the code and download dependencies.
-
-mvn clean install
-
-Run the application:
-
-You can run the project using the Spring Boot Maven plugin.
-
-mvn spring-boot:run
-
-The application will start on http://localhost:8080.
+---
 
 
 
-# Run all unit and integration tests
-mvn test
+## 📁 Project Structure
 
-📁 Project Structure
+```bash
 rio-write/
-├── pom.xml                 # Maven Configuration
+├── pom.xml
 └── src
     ├── main
     │   ├── java
     │   │   └── com/rio/Blogging/website
-    │   │       ├── backgroudScheduled # Scheduled background tasks
-    │   │       ├── Controller      # REST API controllers
-    │   │       ├── DTO             # Data Transfer Objects
-    │   │       ├── exception       # Custom exception handlers
-    │   │       ├── feature         # Feature-specific logic
-    │   │       ├── Modal           # JPA Entity Models
-    │   │       ├── repo            # Spring Data JPA repositories
-    │   │       ├── ReqObj          # Request-specific objects
-    │   │       ├── resMsg          # Response message constants
-    │   │       ├── Response        # Response-specific objects
-    │   │       ├── security        # JWT, Security Config, etc.
-    │   │       ├── service         # Business logic interfaces
-    │   │       └── ServiceImp      # Service implementations
+    │   │       ├── backgroudScheduled
+    │   │       ├── Controller
+    │   │       ├── DTO
+    │   │       ├── exception
+    │   │       ├── feature
+    │   │       ├── Modal
+    │   │       ├── repo
+    │   │       ├── ReqObj
+    │   │       ├── resMsg
+    │   │       ├── Response
+    │   │       ├── security
+    │   │       ├── service
+    │   │       └── ServiceImp
     │   └── resources
-    │       └── application.properties # Project configuration
+    │       └── application.properties
     └── test
-        └── java                    # Test source code
+        └── java
+```
 
-👤 Author
-[Your Name]
+---
 
-📝 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+ Jeet Garala
