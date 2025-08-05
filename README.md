@@ -1,147 +1,91 @@
-# 📄 Rio Writes – (Backend Only)
+🚀 Rio_Writes(Blogging Website)
+A Modern Java Spring Boot Blogging Platform
 
-A Spring Boot-based backend for a billing and content management platform. This project enables user registration, category and post management, and comment handling — designed for future scalability with role-based access and API security.
+📖 Overview
+Blogging Website is a full-featured Java Spring Boot application designed to provide users with a seamless blogging experience. It enables users to create, manage, and interact with blog posts in a secure and scalable environment. Built with industry best practices, this project emphasizes clean architecture, modular design, and robust security.
 
----
+Whether you're building a personal blog or a community-driven publishing platform, this application provides all the essential components to get started.
 
-## 🚀 Features
+✨ Features
+🔐 User Management: Register, log in, and manage user accounts.
 
-### 🔐 Authentication & User Management
-- **Sign Up**: Register a new user (`/api/newUser`)
-- **Email OTP Verification**: Sends OTP via email for verification (`/api/verifyOTP`)
-- **Post-Verification Access**: Only verified users can access full site features
+📝 Blog Post Management: Create, update, and delete blog posts.
 
-#### User Operations:
-- Create new users
-- View all users
-- Update user profiles
-- Delete user profiles
+💬 Comment System: Users can comment on blog posts.
 
-> **Planned:** Role-based access control (`admin`, `user`)
+🧭 Content Filtering: Filter posts by category, tags, or publication date.
 
----
+🔍 Search Functionality: Search blog posts by title or content.
 
-### 📦 Category Management
-- **Add Category**: Create a new category
-- **Get All Categories**: View all existing categories
-- **Get Category By ID**
-- **Update Category**
-- **Delete Category**
+🛡️ Authentication & Authorization: JWT-based login system with role-based access control.
 
-#### Endpoints:
-- `POST /api/category`
-- `GET /api/category/all`
-- `GET /api/category/{id}`
-- `PUT /api/category/{id}`
-- `DELETE /api/category/{id}`
+🔒 Security: Includes secure password hashing, input validation, and JWT token handling.
 
----
+📈 Scalability: Designed to handle increased load with features like caching and modular services.
 
-### 📝 Post Management
+🧱 Maintainability: Follows clean code and separation of concerns principles.
 
-Posts are tied to both users and categories.
+🛠️ Reliability: Easily extendable with support for backups and error handling.
 
-- **Create Post**: Add a new post under a user and category
-- **Get Post By ID**
-- **Get All Posts**
-- **Update Post**
-- **Delete Post By ID**
-- **Delete All Posts**
+🧰 Tech Stack
+Technology	Version
+Java	8
+Spring Boot	2.3.4
+MySQL	8.0.22
+Maven	3.6.3
+JWT	0.9.0
 
-#### Get Posts:
-- By User
-- By Category
-- By Title
-- By Keyword
+📁 Project Structure
+bash
+Copy
+Edit
+blogging-website/
+├── src/
+│   ├── main/
+│   │   ├── java/                # Java source code
+│   │   └── resources/           # Configuration (application.properties, logback.xml, etc.)
+│   └── test/
+│       └── java/                # Unit and integration tests
+├── pom.xml                      # Maven configuration
+└── README.md
+⚙️ Getting Started
+To run the project locally:
 
-#### Endpoints:
-- `POST /api/post`
-- `GET /api/post/{id}`
-- `GET /api/post/all`
-- `PUT /api/post/{id}`
-- `DELETE /api/post/{id}`
-- `GET /api/post/user/{userId}`
-- `GET /api/post/category/{categoryId}`
-- `GET /api/post/title/{title}`
-- `GET /api/post/search/{keyword}`
+Clone the repository
 
----
+bash
+Copy
+Edit
+git clone https://github.com/GARALAJEET/Rio_Writes
+cd blogging-website
+Install dependencies
 
-### 💬 Comment Management
-- **Add Comment To Post**
-- **Get Comments By Post ID**
-- **Update Comment By ID**
-- **Delete Comment By ID**
-- **Delete All Comments**
+bash
+Copy
+Edit
+mvn clean install
+Run the application
 
-#### Endpoints:
-- `POST /api/comment`
-- `GET /api/comment/post/{postId}`
-- `PUT /api/comment/{commentId}`
-- `DELETE /api/comment/{commentId}`
-- `DELETE /api/comment/all`
-
----
-
-## 🛠️ Tech Stack
-
-| Component       | Technology       |
-|----------------|------------------|
-| Backend         | Spring Boot (Java) |
-| Database        | MySQL             |
-| Testing Tool    | Postman           |
-| Email Service   | JavaMailSender (OTP) |
-
-> **Planned Features**:
-> - JWT-based API security
-> - Admin role for advanced operations
-> - Frontend integration
-
----
-
-
-
----
-
-## 🧪 API Testing
-
-Use **Postman** to test all endpoints. Ensure MySQL is running and configured in `application.properties`.
-
-**Example Postman Flows:**
-- **User Flow**: Sign up → Verify OTP → Access endpoints
-- **Category & Post Flow**: Add category → Add post → Comment
-
----
-
-## 📌 Setup Instructions
-
-### Clone Repository
-```bash
-git clone https://github.com/GARALAJEET/Rio_Writes.git
-cd rio-writes-backend
-```
-
-### Set up MySQL Database
-
-Update `application.properties`:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/your_db
-spring.datasource.username=your_user
-spring.datasource.password=your_password
-```
-
-### Run the Application
-
-```bash
+bash
+Copy
+Edit
 mvn spring-boot:run
-```
+Access the application
 
----
 
-## ✉️ Author
+# Integration tests (if configured separately)
+mvn verify
+📦 API Documentation
+This application uses Swagger/OpenAPI to document the available REST APIs.
+Once the app is running, access the API docs at:
 
-**jeet Garala**  
-Developer & Creator of Rio Writes
+bash
+Copy
+Edit
+http://localhost:8080/swagger-ui.html
 
----
+
+👤 Author
+Author: [Jeet Garala]
+Feel free to reach out for contributions or feedback!
+
