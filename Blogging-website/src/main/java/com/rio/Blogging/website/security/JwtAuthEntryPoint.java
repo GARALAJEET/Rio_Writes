@@ -28,7 +28,7 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
         // Create the custom error message map
         Map<String, Object> errorDetails = new HashMap<>();
         errorDetails.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        errorDetails.put("error", "Unauthorized");
+        errorDetails.put("error", authException.getMessage());
         errorDetails.put("message", "Access Denied! You need to be authenticated to access this resource.");
         errorDetails.put("path", request.getRequestURI());
 
