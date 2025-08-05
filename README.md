@@ -6,7 +6,7 @@ A modern, robust blogging platform built with Spring Boot, designed to provide a
 
 ## 📚 Overview
 
-> A single-page application designed with a sticky navigation bar and smooth-scroll UI. Built using **Vanilla JavaScript** and **Tailwind CSS**, this project showcases the static backend documentation in a clear and interactive way.
+>A backend-only project built with Spring Boot, providing a well-structured and secure REST API for a blogging platform. It includes features like user management, post handling, and comments — designed for easy integration with any frontend.
 
 ---
 
