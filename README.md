@@ -1,91 +1,121 @@
-🚀 Rio_Writes(Blogging Website)
-A Modern Java Spring Boot Blogging Platform
+Rio Write ✒️
+A modern, robust blogging platform for writers and readers.
 
 📖 Overview
-Blogging Website is a full-featured Java Spring Boot application designed to provide users with a seamless blogging experience. It enables users to create, manage, and interact with blog posts in a secure and scalable environment. Built with industry best practices, this project emphasizes clean architecture, modular design, and robust security.
+Rio Write is a full-featured blogging platform built with Spring Boot, designed to provide a seamless and secure experience for creating, sharing, and discovering content. It offers a rich set of features for both writers and administrators, from a powerful text editor to comprehensive user management.
 
-Whether you're building a personal blog or a community-driven publishing platform, this application provides all the essential components to get started.
+✨ Key Features
+👤 User & Profile Management: Secure user registration, authentication (JWT-based), and detailed user profile management.
 
-✨ Features
-🔐 User Management: Register, log in, and manage user accounts.
+✍️ Post Management: A complete CRUD (Create, Read, Update, Delete) system for blog posts.
 
-📝 Blog Post Management: Create, update, and delete blog posts.
+💬 Comment System: A robust comment management system for engaging discussions on posts.
 
-💬 Comment System: Users can comment on blog posts.
+🎨 Customizable Templates: Choose from a variety of templates to give your blog a unique look and feel.
 
-🧭 Content Filtering: Filter posts by category, tags, or publication date.
+📝 Rich Text Editing: An intuitive, powerful editor for effortlessly formatting your content.
 
-🔍 Search Functionality: Search blog posts by title or content.
+🔍 Powerful Search: Quickly find users, posts, or comments across the entire platform.
 
-🛡️ Authentication & Authorization: JWT-based login system with role-based access control.
+🔒 Robust Security: Built with Spring Security to protect user data and secure API endpoints.
 
-🔒 Security: Includes secure password hashing, input validation, and JWT token handling.
+Scalable Architecture: Designed to handle high traffic and a large number of users efficiently.
 
-📈 Scalability: Designed to handle increased load with features like caching and modular services.
+🧰 Tech Stack & Tools
+Category
 
-🧱 Maintainability: Follows clean code and separation of concerns principles.
+Technology / Tool
 
-🛠️ Reliability: Easily extendable with support for backups and error handling.
+Backend
 
-🧰 Tech Stack
-Technology	Version
-Java	8
-Spring Boot	2.3.4
-MySQL	8.0.22
-Maven	3.6.3
-JWT	0.9.0
+Spring Boot, Spring Security
+
+Database
+
+MySQL (or your configured database)
+
+Language
+
+Java (Version 11+)
+
+Build Tool
+
+Apache Maven
+
+Server
+
+Apache Tomcat (Embedded)
+
+⚙️ Getting Started
+Follow these instructions to get the project up and running on your local machine.
+
+Prerequisites
+Java Development Kit (JDK): Version 11 or higher.
+
+Apache Maven: To manage project dependencies and build.
+
+A Database Server: Such as MySQL, PostgreSQL, or H2.
+
+An IDE of your choice (e.g., IntelliJ IDEA, Eclipse).
+
+Installation & Setup
+Clone the repository:
+
+git clone https://github.com/GARALAJEET/Rio_Writes.git
+cd rio-write
+
+Configure the database:
+
+Open the src/main/resources/application.properties file.
+
+Update the spring.datasource.url, spring.datasource.username, and spring.datasource.password properties to match your local database setup.
+
+Build the project:
+
+Use Maven to compile the code and download dependencies.
+
+mvn clean install
+
+Run the application:
+
+You can run the project using the Spring Boot Maven plugin.
+
+mvn spring-boot:run
+
+The application will start on http://localhost:8080.
+
+
+
+# Run all unit and integration tests
+mvn test
 
 📁 Project Structure
-bash
-Copy
-Edit
-blogging-website/
-├── src/
-│   ├── main/
-│   │   ├── java/                # Java source code
-│   │   └── resources/           # Configuration (application.properties, logback.xml, etc.)
-│   └── test/
-│       └── java/                # Unit and integration tests
-├── pom.xml                      # Maven configuration
-└── README.md
-⚙️ Getting Started
-To run the project locally:
-
-Clone the repository
-
-bash
-Copy
-Edit
-git clone https://github.com/GARALAJEET/Rio_Writes
-cd blogging-website
-Install dependencies
-
-bash
-Copy
-Edit
-mvn clean install
-Run the application
-
-bash
-Copy
-Edit
-mvn spring-boot:run
-Access the application
-
-
-# Integration tests (if configured separately)
-mvn verify
-📦 API Documentation
-This application uses Swagger/OpenAPI to document the available REST APIs.
-Once the app is running, access the API docs at:
-
-bash
-Copy
-Edit
-http://localhost:8080/swagger-ui.html
-
+rio-write/
+├── pom.xml                 # Maven Configuration
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com/rio/Blogging/website
+    │   │       ├── backgroudScheduled # Scheduled background tasks
+    │   │       ├── Controller      # REST API controllers
+    │   │       ├── DTO             # Data Transfer Objects
+    │   │       ├── exception       # Custom exception handlers
+    │   │       ├── feature         # Feature-specific logic
+    │   │       ├── Modal           # JPA Entity Models
+    │   │       ├── repo            # Spring Data JPA repositories
+    │   │       ├── ReqObj          # Request-specific objects
+    │   │       ├── resMsg          # Response message constants
+    │   │       ├── Response        # Response-specific objects
+    │   │       ├── security        # JWT, Security Config, etc.
+    │   │       ├── service         # Business logic interfaces
+    │   │       └── ServiceImp      # Service implementations
+    │   └── resources
+    │       └── application.properties # Project configuration
+    └── test
+        └── java                    # Test source code
 
 👤 Author
-Author: [Jeet Garala]
-Feel free to reach out for contributions or feedback!
+[Your Name]
 
+📝 License
+This project is licensed under the MIT License. See the LICENSE file for details.
